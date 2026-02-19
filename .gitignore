@@ -44,3 +44,13 @@ apps/hbfs/logs/
 # Coverage
 .coverage
 htmlcov/
+
+# Security, Keys & Identity
+*.pem
+*.key
+*.p12
+*.pfx
+identity/
+keys/
+.env
+.env.*
