@@ -1,6 +1,8 @@
 # H-Bit Protocol: Persistent Authenticity for Digital Media
 ## Technical Whitepaper v2.0
 
+[🇺🇸 Read in English](WHITEPAPER.md) | [🇪🇸 Leer en Español](WHITEPAPER_ES.md)
+
 **Authors:** H-Bit Contributors  
 **Date:** February 2026  
 **License:** Apache 2.0  
