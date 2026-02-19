@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hbit"
+version = "1.0.0b1"
+description = "H-Bit: Persistent Authenticity Protocol — Steganographic signing with cryptographic verification for any digital file"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+authors = [
+    {name = "H-Bit Contributors"}
+]
+keywords = ["steganography", "watermark", "authentication", "image-forensics", "deepfake-detection"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+
+dependencies = [
+    "numpy>=1.26.0",
+    "scipy>=1.12.0",
+    "Pillow>=10.2.0",
+    "opencv-python-headless>=4.9.0",
+    "reedsolo>=1.7.0",
+    "click>=8.1.0",
+    "cryptography>=42.0.0",
+]
+
+[project.optional-dependencies]
+raw = ["rawpy>=0.19.0"]
+blockchain = ["web3>=6.15.0"]
+gpu = ["cupy-cuda12x>=13.0.0"]
+gui = ["customtkinter>=5.2.0"]
+api = ["fastapi>=0.110.0", "uvicorn[standard]>=0.28.0", "python-multipart>=0.0.9"]
+all = ["rawpy>=0.19.0", "web3>=6.15.0", "cupy-cuda12x>=13.0.0", "customtkinter>=5.2.0", "fastapi>=0.110.0", "uvicorn[standard]>=0.28.0", "python-multipart>=0.0.9"]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "hypothesis>=6.98.0",
+    "ruff>=0.2.0",
+    "mypy>=1.8.0",
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/hbit-protocol/hbit"
+Documentation = "https://hbit-protocol.github.io/hbit/"
+Repository = "https://github.com/hbit-protocol/hbit"
+Issues = "https://github.com/hbit-protocol/hbit/issues"
+
+[project.scripts]
+hbit = "hbit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true

@@ -1,0 +1,38 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\gpu_env\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit
+configfile: pyproject.toml
+plugins: cov-7.0.0
+collecting ... collected 28 items
+
+tests/unit/test_formats.py::TestMediaRegistry::test_get_image_handler PASSED [  3%]
+tests/unit/test_formats.py::TestMediaRegistry::test_get_audio_handler PASSED [  7%]
+tests/unit/test_formats.py::TestMediaRegistry::test_get_pdf_handler PASSED [ 10%]
+tests/unit/test_formats.py::TestMediaRegistry::test_get_office_handler PASSED [ 14%]
+tests/unit/test_formats.py::TestMediaRegistry::test_fallback_to_generic PASSED [ 17%]
+tests/unit/test_formats.py::TestMediaRegistry::test_supports_known PASSED [ 21%]
+tests/unit/test_formats.py::TestMediaRegistry::test_supports_unknown_with_fallback PASSED [ 25%]
+tests/unit/test_formats.py::TestMediaRegistry::test_registered_extensions PASSED [ 28%]
+tests/unit/test_formats.py::TestMediaRegistry::test_custom_handler_registration PASSED [ 32%]
+tests/unit/test_formats.py::TestImageHandler::test_load_png PASSED       [ 35%]
+tests/unit/test_formats.py::TestImageHandler::test_embed_extract_roundtrip PASSED [ 39%]
+tests/unit/test_formats.py::TestImageHandler::test_load_real_fixture PASSED [ 42%]
+tests/unit/test_formats.py::TestImageHandler::test_save_and_reload PASSED [ 46%]
+tests/unit/test_formats.py::TestAudioHandler::test_load_wav PASSED       [ 50%]
+tests/unit/test_formats.py::TestAudioHandler::test_embed_extract_roundtrip PASSED [ 53%]
+tests/unit/test_formats.py::TestAudioHandler::test_save_and_reload PASSED [ 57%]
+tests/unit/test_formats.py::TestPDFHandler::test_load_pdf PASSED         [ 60%]
+tests/unit/test_formats.py::TestPDFHandler::test_embed_extract_roundtrip PASSED [ 64%]
+tests/unit/test_formats.py::TestPDFHandler::test_pdf_remains_valid PASSED [ 67%]
+tests/unit/test_formats.py::TestPDFHandler::test_replace_existing_hbit PASSED [ 71%]
+tests/unit/test_formats.py::TestOfficeHandler::test_load_docx PASSED     [ 75%]
+tests/unit/test_formats.py::TestOfficeHandler::test_embed_extract_roundtrip PASSED [ 78%]
+tests/unit/test_formats.py::TestOfficeHandler::test_docx_content_preserved PASSED [ 82%]
+tests/unit/test_formats.py::TestGenericHandler::test_load_any_file PASSED [ 85%]
+tests/unit/test_formats.py::TestGenericHandler::test_embed_extract_roundtrip PASSED [ 89%]
+tests/unit/test_formats.py::TestGenericHandler::test_crc_integrity PASSED [ 92%]
+tests/unit/test_formats.py::TestGenericHandler::test_replace_existing_hbit PASSED [ 96%]
+tests/unit/test_formats.py::TestGenericHandler::test_file_not_corrupted PASSED [100%]
+
+============================= 28 passed in 1.30s ==============================

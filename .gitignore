@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+gpu_env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Debug & test artifacts
+debug_log*.txt
+hbfs_test_log*.txt
+test_output.txt
+verify_log.txt
+test_*.png
+test_*.jpg
+dummy_test.*
+test_identity.key
+
+# Pytest
+.pytest_cache/
+
+# HBFS runtime data
+apps/hbfs/data/*.db
+apps/hbfs/input/
+apps/hbfs/protected/
+apps/hbfs/logs/
+
+# Coverage
+.coverage
+htmlcov/

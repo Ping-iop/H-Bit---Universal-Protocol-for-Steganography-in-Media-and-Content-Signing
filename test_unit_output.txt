@@ -1,0 +1,88 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\gpu_env\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit
+configfile: pyproject.toml
+plugins: cov-7.0.0
+collecting ... collected 134 items / 1 skipped
+
+tests/unit/test_compression.py::TestPayloadCompression::test_compression_low_entropy PASSED [  0%]
+tests/unit/test_compression.py::TestPayloadCompression::test_compression_high_entropy PASSED [  1%]
+tests/unit/test_compression.py::TestPayloadCompression::test_compression_with_encryption PASSED [  2%]
+tests/unit/test_compression_robustness.py::TestCompressionRobustness::test_high_quality_recompression PASSED [  2%]
+tests/unit/test_compression_robustness.py::TestCompressionRobustness::test_medium_quality_recompression PASSED [  3%]
+tests/unit/test_compression_robustness.py::TestCompressionRobustness::test_low_quality_degradation PASSED [  4%]
+tests/unit/test_compression_robustness.py::TestCompressionRobustness::test_no_recompression_baseline PASSED [  5%]
+tests/unit/test_compression_robustness.py::TestCompressionRobustness::test_verification_after_recompression PASSED [  5%]
+tests/unit/test_core.py::TestCrypto::test_generate_key_pair PASSED       [  6%]
+tests/unit/test_core.py::TestCrypto::test_export_pem_format PASSED       [  7%]
+tests/unit/test_core.py::TestCrypto::test_generate_author_hash_deterministic_with_same_inputs PASSED [  8%]
+tests/unit/test_core.py::TestCrypto::test_generate_author_hash_different_with_different_device PASSED [  8%]
+tests/unit/test_core.py::TestCrypto::test_author_hash_length PASSED      [  9%]
+tests/unit/test_core.py::TestCrypto::test_sign_and_verify PASSED         [ 10%]
+tests/unit/test_core.py::TestCrypto::test_verify_fails_with_wrong_key PASSED [ 11%]
+tests/unit/test_core.py::TestCrypto::test_verify_fails_with_modified_payload PASSED [ 11%]
+tests/unit/test_core.py::TestCrypto::test_content_hash_consistency PASSED [ 12%]
+tests/unit/test_core.py::TestKDF::test_session_key_uniqueness PASSED     [ 13%]
+tests/unit/test_core.py::TestKDF::test_session_key_deterministic_with_salt PASSED [ 14%]
+tests/unit/test_core.py::TestKDF::test_image_key_deterministic PASSED    [ 14%]
+tests/unit/test_core.py::TestKDF::test_different_images_different_keys PASSED [ 15%]
+tests/unit/test_core.py::TestKDF::test_passphrase_derivation PASSED      [ 16%]
+tests/unit/test_core.py::TestKDF::test_key_material_length PASSED        [ 17%]
+tests/unit/test_core.py::TestSignature::test_payload_create PASSED       [ 17%]
+tests/unit/test_core.py::TestSignature::test_payload_create_invalid_hash_length PASSED [ 18%]
+tests/unit/test_core.py::TestSignature::test_serialize_deserialize_roundtrip PASSED [ 19%]
+tests/unit/test_core.py::TestSignature::test_to_binary_string PASSED     [ 20%]
+tests/unit/test_core.py::TestSignature::test_flags_default PASSED        [ 20%]
+tests/unit/test_core.py::TestSync::test_barker_header_footer_different PASSED [ 21%]
+tests/unit/test_core.py::TestSync::test_correlation_perfect_match PASSED [ 22%]
+tests/unit/test_core.py::TestSync::test_find_sync_position_exact PASSED  [ 23%]
+tests/unit/test_core.py::TestSync::test_find_payload_boundaries PASSED   [ 23%]
+tests/unit/test_core.py::TestSync::test_wrap_payload PASSED              [ 24%]
+tests/unit/test_core.py::TestSync::test_multiple_copies_detected PASSED  [ 25%]
+tests/unit/test_core.py::TestLSBIntegration::test_encode_decode_roundtrip PASSED [ 26%]
+tests/unit/test_core.py::TestLSBIntegration::test_lsb_non_destructive PASSED [ 26%]
+tests/unit/test_core.py::TestLSBIntegration::test_other_channels_unchanged PASSED [ 27%]
+tests/unit/test_core.py::TestAnalysis::test_channel_entropy_range PASSED [ 28%]
+tests/unit/test_core.py::TestAnalysis::test_random_image_high_entropy PASSED [ 29%]
+tests/unit/test_core.py::TestAnalysis::test_density_map_shape PASSED     [ 29%]
+tests/unit/test_core.py::TestAnalysis::test_channel_selector PASSED      [ 30%]
+tests/unit/test_core.py::TestAnalysis::test_content_hash_excludes_channel PASSED [ 31%]
+tests/unit/test_encryption.py::TestHBitEncryption::test_encrypt_decrypt_roundtrip PASSED [ 32%]
+tests/unit/test_encryption.py::TestHBitEncryption::test_wrong_passphrase_fails PASSED [ 32%]
+tests/unit/test_encryption.py::TestHBitEncryption::test_tampered_ciphertext_fails PASSED [ 33%]
+tests/unit/test_encryption.py::TestHBitEncryption::test_tampered_tag_fails PASSED [ 34%]
+tests/unit/test_encryption.py::TestHBitEncryption::test_salt_nonce_uniqueness PASSED [ 35%]
+tests/unit/test_encryption.py::TestHBitEncryption::test_empty_passphrase PASSED [ 35%]
+tests/unit/test_encryption.py::TestPayloadEncryption::test_payload_encryption_roundtrip PASSED [ 36%]
+tests/unit/test_encryption.py::TestPayloadEncryption::test_payload_wrong_passphrase PASSED [ 37%]
+tests/unit/test_encryption.py::TestPayloadEncryption::test_legacy_payload_passthrough PASSED [ 38%]
+tests/unit/test_formats.py::TestMediaRegistry::test_get_image_handler PASSED [ 38%]
+tests/unit/test_formats.py::TestMediaRegistry::test_get_audio_handler PASSED [ 39%]
+tests/unit/test_formats.py::TestMediaRegistry::test_get_pdf_handler PASSED [ 40%]
+tests/unit/test_formats.py::TestMediaRegistry::test_get_office_handler PASSED [ 41%]
+tests/unit/test_formats.py::TestMediaRegistry::test_fallback_to_generic PASSED [ 41%]
+tests/unit/test_formats.py::TestMediaRegistry::test_supports_known PASSED [ 42%]
+tests/unit/test_formats.py::TestMediaRegistry::test_supports_unknown_with_fallback PASSED [ 43%]
+tests/unit/test_formats.py::TestMediaRegistry::test_registered_extensions PASSED [ 44%]
+tests/unit/test_formats.py::TestMediaRegistry::test_custom_handler_registration PASSED [ 44%]
+tests/unit/test_formats.py::TestImageHandler::test_load_png PASSED       [ 45%]
+tests/unit/test_formats.py::TestImageHandler::test_embed_extract_roundtrip PASSED [ 46%]
+tests/unit/test_formats.py::TestImageHandler::test_load_real_fixture PASSED [ 47%]
+tests/unit/test_formats.py::TestImageHandler::test_save_and_reload PASSED [ 47%]
+tests/unit/test_formats.py::TestAudioHandler::test_load_wav PASSED       [ 48%]
+tests/unit/test_formats.py::TestAudioHandler::test_embed_extract_roundtrip PASSED [ 49%]
+tests/unit/test_formats.py::TestAudioHandler::test_save_and_reload PASSED [ 50%]
+tests/unit/test_formats.py::TestPDFHandler::test_load_pdf PASSED         [ 50%]
+tests/unit/test_formats.py::TestPDFHandler::test_embed_extract_roundtrip FAILED [ 51%]
+
+================================== FAILURES ===================================
+_________________ TestPDFHandler.test_embed_extract_roundtrip _________________
+tests\unit\test_formats.py:345: in test_embed_extract_roundtrip
+    assert HBIT_MARKER in result.output_data
+E   AssertionError: assert b'HBITSIGN' in b'%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [] /Count 0 >>\nendobj\n3 0 obj\n<<\n/Type /HBitPayload\n/V 2\n/Length 12\n/Bits 64\n>>\nstream\nrMqsyqzKrMo=\nendstream\nendobj\n\nxref\n0 3\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \ntrailer\n<< /Size 3 /Root 1 0 R >>\nstartxref\n109\n%%EOF\n'
+E    +  where b'%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [] /Count 0 >>\nendobj\n3 0 obj\n<<\n/Type /HBitPayload\n/V 2\n/Length 12\n/Bits 64\n>>\nstream\nrMqsyqzKrMo=\nendstream\nendobj\n\nxref\n0 3\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \ntrailer\n<< /Size 3 /Root 1 0 R >>\nstartxref\n109\n%%EOF\n' = EmbedResult(output_data=b'%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [] /Count 0 >>\nendobj\n3 0 obj\n<<\n/Type /HBitPayload\n/V 2\n/Length 12\n/Bits 64\n>>\nstream\nrMqsyqzKrMo=\nendstream\nendobj\n\nxref\n0 3\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \ntrailer\n<< /Size 3 /Root 1 0 R >>\nstartxref\n109\n%%EOF\n', bits_embedded=64, capacity_used=0.0001220703125, strategy_used=<EmbeddingStrategy.STREAM: 4>).output_data
+=========================== short test summary info ===========================
+FAILED tests/unit/test_formats.py::TestPDFHandler::test_embed_extract_roundtrip
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+============= 1 failed, 68 passed, 1 skipped in 269.59s (0:04:29) =============
