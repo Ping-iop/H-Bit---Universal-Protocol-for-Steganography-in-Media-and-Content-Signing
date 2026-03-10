@@ -32,18 +32,12 @@ class TestPayloadCompression:
         assert flags_int & PayloadFlags.IS_COMPRESSED
         
         # Roundtrip
-        deserialized = HBitPayload.deserialize_core(serialized)
-        # deserialize_core restaura el objeto, pero no carga ECC/Signature por defecto
-        # porque serialize_core solo serializa el core.
-        # Espera, deserialize_core solo lee el CORE de 74 bytes tras descomprimir.
-        # Si comprimí TODO (incluido ECC), deserialize_core descomprime TODO, lee los 74 bytes iniciales y descarta el resto.
-        # Esto es correcto para HBitPayload.deserialize_core.
-        # Pero mi test quiere verificar que TODO el contenido se recupera si implementara deserialize_full?
-        # Actualmente no tengo deserialize_full, pero HBitPayload.deserialize_core ignora el resto.
+        deserialized = HBitPayload.deserialize(serialized)
         
-        # Lo importante es que deserialice bien el core.
+        # Ahora verificamos que TODO el contenido se recupera
         assert deserialized.author_hash == payload.author_hash
         assert deserialized.timestamp == payload.timestamp
+        assert deserialized.ecc_parity == payload.ecc_parity
         # Y que NO tenga flag IS_COMPRESSED en el objeto reconstruido
         assert not (deserialized.flags & PayloadFlags.IS_COMPRESSED)
 
@@ -68,8 +62,9 @@ class TestPayloadCompression:
         assert not (flags_int & PayloadFlags.IS_COMPRESSED)
         
         # Roundtrip
-        deserialized = HBitPayload.deserialize_core(serialized)
+        deserialized = HBitPayload.deserialize(serialized)
         assert deserialized.author_hash == payload.author_hash
+        assert deserialized.ecc_parity == payload.ecc_parity
 
     def test_compression_with_encryption(self):
         """Verifica compresión + cifrado (compresión ocurre antes)."""
