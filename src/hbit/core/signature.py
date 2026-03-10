@@ -226,7 +226,7 @@ class HBitPayload:
         plaintext = encryptor.decrypt(encrypted, passphrase)
 
         # Deserializar el plaintext
-        return cls.deserialize_core(plaintext)
+        return cls.deserialize(plaintext)
 
     def serialize_core(self) -> bytes:
         """Serializa los campos core del payload (sin ECC ni firma).
@@ -272,6 +272,11 @@ class HBitPayload:
             raw_payload += struct.pack("!H", len(self.ecc_parity))
             raw_payload += self.ecc_parity
 
+        if self.flags & PayloadFlags.HAS_C2PA_REF and self.c2pa_reference:
+            # Prefijo con longitud de la referencia C2PA (2 bytes)
+            raw_payload += struct.pack("!H", len(self.c2pa_reference))
+            raw_payload += self.c2pa_reference
+
         # Intentar compresión
         # Excluir los dos primeros bytes (Version + Flags) para recomponer header
         # Header [V][F]
@@ -303,9 +308,114 @@ class HBitPayload:
         return "".join(format(byte, "08b") for byte in serialized)
 
     @classmethod
+    def deserialize(cls, data: bytes) -> HBitPayload:
+        """Deserializa el payload completo.
+
+        Maneja automáticamente la descompresión zlib si es necesario.
+
+        Args:
+            data: bytes con el payload (posiblemente comprimido).
+
+        Returns:
+            HBitPayload con todos los campos restaurados según los flags.
+
+        Raises:
+            ValueError: Si los datos son insuficientes o corruptos.
+        """
+        if len(data) < 2:
+            raise ValueError("Datos insuficientes (header)")
+
+        version, flags_raw = struct.unpack_from("!BB", data, 0)
+
+        if version != PROTOCOL_VERSION:
+            raise ValueError(f"Versión de protocolo no soportada: {version}")
+
+        flags = PayloadFlags(flags_raw)
+
+        if flags & PayloadFlags.IS_COMPRESSED:
+            import zlib
+            try:
+                # El resto es stream zlib
+                decompressed_body = zlib.decompress(data[2:])
+                # Restaurar flags originales (quitar IS_COMPRESSED)
+                orig_flags = flags & ~PayloadFlags.IS_COMPRESSED
+                clean_header = struct.pack("!BB", version, int(orig_flags))
+
+                decompressed_data = clean_header + decompressed_body
+                return cls.deserialize(decompressed_data)
+            except Exception as e:
+                raise ValueError(f"Fallo al descomprimir payload: {e}")
+
+        # Lógica estándar para payload no comprimido
+        core_size = (
+            VERSION_LENGTH
+            + FLAGS_LENGTH
+            + AUTHOR_HASH_LENGTH
+            + CONTENT_HASH_LENGTH
+            + TIMESTAMP_LENGTH
+        )
+        if len(data) < core_size:
+            raise ValueError(
+                f"Datos insuficientes: se necesitan {core_size} bytes para el core, "
+                f"recibido: {len(data)}"
+            )
+
+        offset = 2
+
+        author_hash = data[offset : offset + AUTHOR_HASH_LENGTH]
+        offset += AUTHOR_HASH_LENGTH
+
+        content_hash = data[offset : offset + CONTENT_HASH_LENGTH]
+        offset += CONTENT_HASH_LENGTH
+
+        (timestamp,) = struct.unpack_from("!d", data, offset)
+        offset += TIMESTAMP_LENGTH
+
+        # Campos opcionales
+        signature = b""
+        if flags & PayloadFlags.HAS_SIGNATURE:
+            if len(data) < offset + SIGNATURE_LENGTH:
+                raise ValueError("Datos insuficientes para la firma")
+            signature = data[offset : offset + SIGNATURE_LENGTH]
+            offset += SIGNATURE_LENGTH
+
+        ecc_parity = b""
+        if flags & PayloadFlags.HAS_ECC:
+            if len(data) < offset + 2:
+                raise ValueError("Datos insuficientes para longitud de ECC")
+            (ecc_len,) = struct.unpack_from("!H", data, offset)
+            offset += 2
+            if len(data) < offset + ecc_len:
+                raise ValueError("Datos insuficientes para ECC parity")
+            ecc_parity = data[offset : offset + ecc_len]
+            offset += ecc_len
+
+        c2pa_reference = b""
+        if flags & PayloadFlags.HAS_C2PA_REF:
+            if len(data) < offset + 2:
+                raise ValueError("Datos insuficientes para longitud de C2PA ref")
+            (c2pa_len,) = struct.unpack_from("!H", data, offset)
+            offset += 2
+            if len(data) < offset + c2pa_len:
+                raise ValueError("Datos insuficientes para C2PA ref")
+            c2pa_reference = data[offset : offset + c2pa_len]
+            offset += c2pa_len
+
+        return cls(
+            version=version,
+            flags=flags,
+            author_hash=author_hash,
+            content_hash=content_hash,
+            timestamp=timestamp,
+            signature=signature,
+            ecc_parity=ecc_parity,
+            c2pa_reference=c2pa_reference,
+        )
+
+    @classmethod
     def deserialize_core(cls, data: bytes) -> HBitPayload:
-        """Deserializa los campos core del payload.
-        
+        """Deserializa el payload (alias de deserialize para compatibilidad).
+
         Maneja automáticamente la descompresión zlib si es necesario.
 
         Args:
@@ -317,63 +427,7 @@ class HBitPayload:
         Raises:
             ValueError: Si los datos son insuficientes o corruptos.
         """
-        if len(data) < 2:
-             raise ValueError("Datos insuficientes (header)")
-
-        version, flags_raw = struct.unpack_from("!BB", data, 0)
-        
-        if version != PROTOCOL_VERSION:
-            raise ValueError(f"Versión de protocolo no soportada: {version}")
-
-        flags = PayloadFlags(flags_raw)
-        
-        if flags & PayloadFlags.IS_COMPRESSED:
-            imported_zlib = __import__("zlib")
-            try:
-                # El resto es stream zlib
-                decompressed_body = imported_zlib.decompress(data[2:])
-                # Reconstruir payload raw: [Ver][OrigFlags][Body]
-                # Nota: al serializar, 'flags' tenía IS_COMPRESSED.
-                # Queremos restaurar el payload original. El payload original NO tenía IS_COMPRESSED activado permanentemente en el objeto (solo en tránsito).
-                # Pero serialize() modificó el flag en el header de salida.
-                # Al decompress, necesitamos restaurar el buffer completo para una llamada recursiva?
-                # No, deserialize_core espera el formato plano.
-                # Podemos llamar recursivamente con un header "limpio" (sin IS_COMPRESSED).
-                
-                # Restaurar flags originales (quitar IS_COMPRESSED)
-                orig_flags = flags & ~PayloadFlags.IS_COMPRESSED
-                clean_header = struct.pack("!BB", version, int(orig_flags))
-                
-                decompressed_data = clean_header + decompressed_body
-                return cls.deserialize_core(decompressed_data)
-            except Exception as e:
-                raise ValueError(f"Fallo al descomprimir payload: {e}")
-
-        # Lógica estándar para payload no comprimido
-        core_size = VERSION_LENGTH + FLAGS_LENGTH + AUTHOR_HASH_LENGTH + CONTENT_HASH_LENGTH + TIMESTAMP_LENGTH
-        if len(data) < core_size:
-            raise ValueError(
-                f"Datos insuficientes: se necesitan {core_size} bytes, "
-                f"recibido: {len(data)}"
-            )
-
-        offset = 2
-
-        author_hash = data[offset:offset + AUTHOR_HASH_LENGTH]
-        offset += AUTHOR_HASH_LENGTH
-
-        content_hash = data[offset:offset + CONTENT_HASH_LENGTH]
-        offset += CONTENT_HASH_LENGTH
-
-        (timestamp,) = struct.unpack_from("!d", data, offset)
-
-        return cls(
-            version=version,
-            flags=flags,
-            author_hash=author_hash,
-            content_hash=content_hash,
-            timestamp=timestamp,
-        )
+        return cls.deserialize(data)
 
     @property
     def core_size_bits(self) -> int:
