@@ -18,7 +18,6 @@ from numpy.typing import NDArray
 from dataclasses import dataclass
 from typing import Optional
 
-from hbit.core.sync import wrap_payload_with_sync, SYNC_SEQUENCE_LENGTH
 
 
 @dataclass(frozen=True)
