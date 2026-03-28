@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\testing\_random.py
+# hypothesis_version: 6.151.8
+
+[100, 101, 2147483647, '0', 'random is not set up', 'test_']

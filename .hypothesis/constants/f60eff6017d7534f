@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\random\_generator.py
+# hypothesis_version: 6.151.8
+
+[-2.0, 0.0, 1e-08, 0.5, 1.0, 1024, 1000000, 4294967295, 18446744073709551615, ', ', 'CUPY_SEED', 'T X', 'T low, T high', 'T max, T mx', 'T mean, T scale, T U', 'T out', 'T sample', 'T x', 'T x, T loc, T scale', 'T y', 'a < 0', 'biu', 'cholesky', 'cupy_get_indices', 'cupy_gumbel_kernel', 'cupy_laplace_kernel', 'cupy_random_x_mod_1', 'cupy_scale', 'cupy_wald_scale', 'cupyx', 'd', 'df <= 0', 'dfden <= 0', 'dfnum <= 0', 'dtype', 'eigh', 'f', 'ignore', 'invalid.', 'l', 'left == right', 'left > mode', 'low >= high', 'mode > right', 'n <= 0', 'nonc < 0', 'p < 0', 'p <= 0.0', 'p > 1', 'p >= 1.0', 'raise', 'raw U csum', 'raw U indices', 'right', 'scale < 0', 'svd', 'warn']

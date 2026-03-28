@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\cuda\memory_hooks\debug_print.py
+# hypothesis_version: 6.151.8
+
+['DebugPrintHook', 'alloc', 'device_id', 'free', 'malloc', 'mem_ptr', 'mem_size', 'pmem_id', 'size']

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\numpy\lib\_version.py
+# hypothesis_version: 6.151.8
+
+['.', '.dev', 'NumpyVersion', '\\d+\\.\\d+\\.\\d+', 'a\\d', 'b\\d', 'final', 'numpy.lib', 'rc\\d']

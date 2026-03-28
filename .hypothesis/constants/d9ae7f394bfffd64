@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\linalg\_util.py
+# hypothesis_version: 6.151.8
+
+['32', '64', 'S x', 'cupy_tril_kernel', 'cupy_triu_kernel', 'fc', 'float', 'float16', 'float32', 'float64', 'ignore', 'int64 k', 'raise']

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupyx\_rsqrt.py
+# hypothesis_version: 6.151.8
+
+['D->D', 'F->F', 'cupy_rsqrt', 'd->d', 'e->e', 'f->f', 'out0 = rsqrt(in0)']

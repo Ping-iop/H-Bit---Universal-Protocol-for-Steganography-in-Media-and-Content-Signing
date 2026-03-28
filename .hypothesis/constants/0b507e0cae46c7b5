@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\cuda\memory_hooks\line_profile.py
+# hypothesis_version: 6.151.8
+
+[1024.0, '%.2f%sB', '%3.2f%sB', '%s%s:%s:%s (%s, %s)\n', 'E', 'G', 'K', 'LineProfileHook', 'M', 'P', 'T', 'Z', '_root (%s, %s)\n']

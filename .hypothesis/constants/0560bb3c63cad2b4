@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\lib\_routines_poly.py
+# hypothesis_version: 6.151.8
+
+[0.0, 1.0, 'Unsupported type', 'b', 'c', 'direct', 'e', 'expected deg >= 0', 'f', 'fft', 'full', 'p must be 1d array', 'unscaled']

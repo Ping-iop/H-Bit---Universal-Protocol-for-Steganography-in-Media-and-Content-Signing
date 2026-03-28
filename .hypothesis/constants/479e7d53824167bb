@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_statistics\histogram.py
+# hypothesis_version: 6.151.8
+
+[0.5, 2147483647, 'Internal Shape Error', 'S x', 'S x, T w', 'bui', 'c', 'cupy_bincount_kernel', 'f', 'left', 'raw U bin', 'raw U y', 'raw Y y', 'right', 'ui', 'x may not be complex', 'x must be int array']

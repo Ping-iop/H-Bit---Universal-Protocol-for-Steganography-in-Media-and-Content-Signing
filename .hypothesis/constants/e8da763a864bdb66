@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\core\crypto.py
+# hypothesis_version: 6.151.8
+
+[256, 'big', 'hbit_private.pem', 'hbit_public.pem', 'utf-8']

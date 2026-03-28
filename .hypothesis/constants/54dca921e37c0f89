@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_manipulation\add_remove.py
+# hypothesis_version: 6.151.8
+
+['B', 'F', 'T data, int64 len', 'T y', 'cupy_resize', 'f', 'fb', 'first_nonzero', 'int64 y', 'len', 'min(a, b)', 'raw T x, int64 size', 'y = a', 'y = x[i % size]']

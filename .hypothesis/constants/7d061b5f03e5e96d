@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_logic\ops.py
+# hypothesis_version: 6.151.8
+
+['&&', '?->?', '??->?', 'B->?', 'BB->?', 'H->?', 'HH->?', 'I->?', 'II->?', 'L->?', 'LL->?', 'Q->?', 'QQ->?', 'b->?', 'bb->?', 'cupy_logical_not', 'cupy_logical_xor', 'd->?', 'dd->?', 'e->?', 'ee->?', 'f->?', 'ff->?', 'h->?', 'hh->?', 'i->?', 'ii->?', 'l->?', 'll->?', 'logical_and', 'logical_or', 'out0 = !in0', 'out0 = !in0 != !in1', 'q->?', 'qq->?', '||']

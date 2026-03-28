@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupyx\scipy\sparse\_csr.py
+# hypothesis_version: 6.151.8
+
+['?', 'C', 'F', 'FD', 'T res', 'T y', '_eq_', '_ge_', '_gt_', '_le_', '_lt_', '_maximum_', '_minimum_', '_ne_', 'csr', 'csr2csc', 'csr2cscEx2', 'csrgeam', 'csrgeam2', 'csrgemm', 'csrgemm2', 'csrmm2', 'csrmv', 'csrmvEx', 'denseToSparse', 'fdFD', 'i', 'inconsistent shape', 'invalid op_name: {}', 'order not understood', 'raw T OUT', 'sparseToDense', 'spgemm', 'spmm', 'spmv', 'step1', 'step2']

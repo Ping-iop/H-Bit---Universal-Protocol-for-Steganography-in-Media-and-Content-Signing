@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\trigonometric.py
+# hypothesis_version: 6.151.8
+
+['acos', 'asin', 'atan', 'atan2', 'cos', 'cupy_arccos', 'cupy_arcsin', 'cupy_arctan', 'cupy_arctan2', 'cupy_cos', 'cupy_deg2rad', 'cupy_hypot', 'cupy_rad2deg', 'cupy_sin', 'cupy_tan', 'd->d', 'e->e', 'f->f', 'hypot', 'sin', 'tan']

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\formats\image.py
+# hypothesis_version: 6.151.8
+
+[0.0, 0.4, 35.0, 100, 500, 1200, '.bmp', '.jpeg', '.jpg', '.tif', '.tiff', '.webp', '0', '1', 'BMP', 'JPEG', 'JPG', 'PNG', 'RGB', 'TIFF', 'WEBP', 'bmp', 'channels', 'dct_strength', 'dtype', 'format', 'height', 'jpeg', 'jpg', 'pil_format', 'png', 'shape', 'tif', 'tiff', 'uint8', 'webp', 'width']

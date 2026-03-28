@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_misc\memory_ranges.py
+# hypothesis_version: 6.151.8
+
+['MAY_SHARE_BOUNDS', 'MAY_SHARE_EXACT', 'T x', 'c', 'cupy_get_memory_ptrs', 'left', 'right', 'uint64 out']

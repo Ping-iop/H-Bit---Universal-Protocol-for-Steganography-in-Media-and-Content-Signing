@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupyx\scipy\sparse\_index.py
+# hypothesis_version: 6.151.8
+
+['1.4.0', 'b', 'bool', 'column', 'index', 'int32 Bj, T Bx', 'invalid index', 'invalid index shape', 'ndim', 'raw I Bj, raw T Bx', 'raw T Bx', 'raw T answer', 'raw bool mask', 'row', '{} ({}) out of range']

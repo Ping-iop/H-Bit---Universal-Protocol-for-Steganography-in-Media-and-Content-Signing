@@ -32,7 +32,7 @@ from hbit.core.crypto import (
     compute_content_hash as crypto_content_hash,
 )
 from hbit.core.kdf import derive_image_key, derive_from_passphrase
-from hbit.core.signature import HBitPayload, PayloadFlags
+from hbit.core.signature import HBitPayload, PayloadFlags, OriginType
 from hbit.core.sync import wrap_payload_with_sync
 from hbit.formats.base import (
     MediaRegistry,
@@ -64,6 +64,8 @@ class UniversalEncodeResult:
         media_category: Tipo de medio procesado.
         strategy_used: Estrategia de embedding utilizada.
         handler_name: Nombre del handler utilizado.
+        origin_type: Tipo de origen del contenido.
+        ai_model_id: Identificador del modelo IA (si aplica).
     """
     output_path: Path
     author_hash: str
@@ -73,6 +75,8 @@ class UniversalEncodeResult:
     media_category: str
     strategy_used: str
     handler_name: str
+    origin_type: str
+    ai_model_id: str
 
 
 @dataclass
@@ -88,6 +92,9 @@ class UniversalDecodeResult:
         payload: Payload deserializado (si se encontró).
         media_category: Tipo de medio procesado.
         found: Si se encontró firma válida.
+        origin_type: Tipo de origen del contenido.
+        origin_label: Etiqueta legible del tipo de origen.
+        ai_model_id: Hash del modelo IA (hex, si aplica).
     """
     author_hash: str
     content_hash: str
@@ -98,6 +105,9 @@ class UniversalDecodeResult:
     media_category: str
     strategy_used: str
     found: bool
+    origin_type: str
+    origin_label: str
+    ai_model_id: str
 
 
 @dataclass
@@ -145,6 +155,8 @@ class UniversalEncoder:
         output_path: str | Path,
         device_id: str = "software-reference-v0.1",
         encrypt: bool = False,
+        origin_type: OriginType = OriginType.UNKNOWN,
+        ai_model_id: str | None = None,
     ) -> UniversalEncodeResult:
         """Codifica cualquier archivo con firma H-Bit.
 
@@ -154,6 +166,8 @@ class UniversalEncoder:
             output_path: Ruta donde guardar el archivo firmado.
             device_id: Identificador del dispositivo.
             encrypt: Si True, cifra el payload usando la passphrase (requiere author_key str).
+            origin_type: Tipo de origen del contenido (HUMAN, AI_GENERATED, AI_ASSISTED, UNKNOWN).
+            ai_model_id: Identificador del modelo IA (ej: "gpt-4o", "midjourney-v6").
 
         Returns:
             UniversalEncodeResult con los detalles de la codificación.
@@ -196,6 +210,8 @@ class UniversalEncoder:
             author_hash=author_hash,
             content_hash=content_hash,
             flags=flags,
+            origin_type=origin_type,
+            ai_model_id=ai_model_id,
         )
 
         # 8. Serializar (y opcionalmente cifrar)
@@ -219,6 +235,14 @@ class UniversalEncoder:
         # 10. Guardar
         handler.save(embed_result.output_data, output_path, carrier)
 
+        # Determinar etiqueta de origen para el resultado
+        _origin_labels = {
+            OriginType.HUMAN: "Humano",
+            OriginType.AI_GENERATED: "Generado por IA",
+            OriginType.AI_ASSISTED: "Asistido por IA",
+            OriginType.UNKNOWN: "Desconocido",
+        }
+
         return UniversalEncodeResult(
             output_path=output_path,
             author_hash=author_hash.hex(),
@@ -228,6 +252,8 @@ class UniversalEncoder:
             media_category=handler.category.value,
             strategy_used=embed_result.strategy_used.name,
             handler_name=handler.name,
+            origin_type=_origin_labels.get(origin_type, "Desconocido"),
+            ai_model_id=ai_model_id or "",
         )
 
     def _resolve_key(self, author_key: HBitKeyPair | str) -> bytes:
@@ -338,6 +364,9 @@ class UniversalDecoder:
                 media_category=handler.category.value,
                 strategy_used=extract_result.strategy_used.name,
                 found=True,
+                origin_type=payload.origin_type.name,
+                origin_label=payload.origin_label,
+                ai_model_id=payload.ai_model_id.hex() if payload.has_ai_model_id else "",
             )
         except (ValueError, struct.error, IndexError, Exception):
             # Exception genérica para capturar EncryptionError también
@@ -355,6 +384,9 @@ class UniversalDecoder:
             media_category=handler.category.value,
             strategy_used="",
             found=False,
+            origin_type="",
+            origin_label="",
+            ai_model_id="",
         )
 
     @staticmethod
@@ -424,13 +456,16 @@ class UniversalVerifier:
             current_hash = carrier.content_hash()
 
             if current_hash == decode_result.payload.content_hash:
+                origin_info = self._format_origin_info(decode_result)
                 return UniversalVerifyResult(
                     status=UniversalVerificationStatus.VERIFIED,
                     decode_result=decode_result,
                     message=(
                         f"[OK] Archivo verificado ({handler.category.value}). "
                         f"Autor: {decode_result.author_hash[:16]}... "
+                        f"Origen: {decode_result.origin_label} "
                         f"(confianza: {decode_result.confidence:.1%})"
+                        f"{origin_info}"
                     ),
                 )
             else:
@@ -459,6 +494,13 @@ class UniversalVerifier:
         return UniversalVerifyResult(
             status=UniversalVerificationStatus.VERIFIED,
             decode_result=decode_result,
-            message=f"[OK] Firma H-Bit encontrada. Autor: {decode_result.author_hash[:16]}...",
+            message=f"[OK] Firma H-Bit encontrada. Autor: {decode_result.author_hash[:16]}... Origen: {decode_result.origin_label}",
         )
+
+    @staticmethod
+    def _format_origin_info(decode_result: UniversalDecodeResult) -> str:
+        """Formatea información de origen IA para mensajes de verificación."""
+        if not decode_result.ai_model_id:
+            return ""
+        return f" | Modelo IA: {decode_result.ai_model_id[:16]}..."
 

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\PIL\_typing.py
+# hypothesis_version: 6.151.8
+
+['StrOrBytesPath', 'SupportsRead', 'TypeGuard', '_T_co', 'os.PathLike[bytes]', 'os.PathLike[str]']

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\requests_toolbelt\_compat.py
+# hypothesis_version: 6.151.8
+
+[131840, '%s(%s)', ', ', ':', 'HTTPHeaderDict', 'basestring', 'connection', 'fields', 'filepost', 'keys', 'poolmanager', 'queue', 'timeout', 'urlencode', 'urljoin']

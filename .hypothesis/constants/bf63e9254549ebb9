@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\PIL\JpegPresets.py
+# hypothesis_version: 6.151.8
+
+['high', 'low', 'maximum', 'medium', 'quantization', 'subsampling', 'web_high', 'web_low', 'web_maximum', 'web_medium', 'web_very_high']

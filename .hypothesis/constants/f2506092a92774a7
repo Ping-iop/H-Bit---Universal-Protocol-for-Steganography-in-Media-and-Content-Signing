@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\requests_toolbelt\auth\http_proxy_digest.py
+# hypothesis_version: 6.151.8
+
+[407, 'Proxy-Authorization', '_thread_local', 'digest ', 'false', 'proxy-authenticate', 'response', 'stale', 'true']

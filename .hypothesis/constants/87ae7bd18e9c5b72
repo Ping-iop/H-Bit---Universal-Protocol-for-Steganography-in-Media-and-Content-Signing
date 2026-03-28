@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_statistics\order.py
+# hypothesis_version: 6.151.8
+
+[0.0, 0.5, 1.0, 100, 'U ret', 'closest_observation', 'hazen', 'higher', 'inverted_cdf', 'linear', 'lower', 'median_unbiased', 'midpoint', 'nearest', 'normal_unbiased', 'percentile', 'quantile', 'weibull']

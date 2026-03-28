@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\scipy\optimize\tnc.py
+# hypothesis_version: 6.151.8
+
+['OptimizeResult', '_tnc', 'fmin_tnc', 'optimize', 'tnc', 'zeros']

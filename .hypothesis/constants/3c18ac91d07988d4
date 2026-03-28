@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cuda\pathfinder\_utils\env_vars.py
+# hypothesis_version: 6.151.8
+
+['CUDA_HOME', 'CUDA_PATH']

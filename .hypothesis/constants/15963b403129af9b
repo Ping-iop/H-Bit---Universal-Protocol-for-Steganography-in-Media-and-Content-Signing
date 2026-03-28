@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\floating.py
+# hypothesis_version: 6.151.8
+
+['?', 'copysign', 'cupy_copysign', 'cupy_frexp', 'cupy_ldexp', 'cupy_nextafter', 'cupy_signbit', 'd->?', 'd->di', 'di->d', 'dq->d', 'e->?', 'e->ei', 'ei->e', 'el->e', 'f->?', 'f->fi', 'fi->f', 'fl->f', 'frexp', 'frexpf', 'i', 'l', 'nextafter', 'out0 = signbit(in0)']

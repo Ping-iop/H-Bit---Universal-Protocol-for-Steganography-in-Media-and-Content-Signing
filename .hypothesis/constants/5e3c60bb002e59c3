@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\analysis\integrity.py
+# hypothesis_version: 6.151.8
+
+[0.0, 0.0722, 0.2126, 0.7152, 'INTACT', 'TAMPERED', 'UNKNOWN', 'ortho']

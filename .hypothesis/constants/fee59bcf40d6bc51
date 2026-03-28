@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\httpcore\_backends\mock.py
+# hypothesis_version: 6.151.8
+
+['Connection closed', 'h2', 'http/1.1', 'ssl_object']

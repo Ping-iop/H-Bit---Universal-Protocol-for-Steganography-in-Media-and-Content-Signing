@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupyx\scipy\sparse\_compressed.py
+# hypothesis_version: 6.151.8
+
+[256, '-std=c++17', '<', '>', '?fdFD', '_has_sorted_indices', 'bincount_idx_global', 'block_length > 0', 'bool diff', 'c', 'd', 'fill_B<double>', 'fill_B<float>', 'fill_B<{}>', 'fill_B_complex<{}>', 'i', 'max', 'max_reduction', 'min', 'min_reduction', 'row_kept_count']

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\formats\generic.py
+# hypothesis_version: 6.151.8
+
+[b'\x00ENDHB\x00', b'\x00HBIT\x00', b'\x01', 0.0, 0.3, 0.95, 1024, 4294967295, '.', '0', '08b', 'BINARY', 'big', 'format', 'has_hbit', 'size']

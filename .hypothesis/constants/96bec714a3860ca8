@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\testing\_attr.py
+# hypothesis_version: 6.151.8
+
+['-1', 'CUPY_TEST_GPU_LIMIT', 'multi_gpu attribute', 'pytest attributes', '{} GPUs required']

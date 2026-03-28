@@ -209,11 +209,12 @@ class TestSignature:
     def test_to_binary_string(self):
         """La representación binaria del core tiene la longitud correcta."""
         payload = HBitPayload.create(author_hash=b"\x00" * 32)
-        # serialize_core() siempre produce 74 bytes (sin compresión)
+        # serialize_core() siempre produce 107 bytes (sin compresión)
         core = payload.serialize_core()
         core_binary = "".join(format(byte, "08b") for byte in core)
-        # Core: 1 + 1 + 32 + 32 + 8 = 74 bytes = 592 bits
-        assert len(core_binary) == 74 * 8
+        # Core: 1(ver) + 1(flags) + 1(origin) + 32(author) + 32(content)
+        #      + 8(timestamp) + 32(ai_model_id) = 107 bytes = 856 bits
+        assert len(core_binary) == 107 * 8
 
     def test_flags_default(self):
         """Los flags por defecto incluyen hash de contenido y ECC."""

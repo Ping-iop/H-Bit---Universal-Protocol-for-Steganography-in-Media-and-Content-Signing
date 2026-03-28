@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_logic\comparison.py
+# hypothesis_version: 6.151.8
+
+[1e-08, 1e-05, 'DDdd?->?', 'FFff?->?', 'cupy_is_close', 'dddd?->?', 'eeee?->?', 'ffff?->?']

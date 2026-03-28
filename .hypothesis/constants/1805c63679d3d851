@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_manipulation\kind.py
+# hypothesis_version: 6.151.8
+
+['A', 'C', 'CONTIGUOUS', 'C_CONTIGUOUS', 'F', 'FORTRAN', 'F_CONTIGUOUS', 'O', 'OWNDATA']

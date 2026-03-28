@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cuda\pathfinder\_headers\find_nvidia_headers.py
+# hypothesis_version: 6.151.8
+
+['*', '/', 'CONDA_PREFIX', 'CUDA_HOME', 'Library', 'cccl', 'conda', 'include', 'nvvm', 'site-packages', 'targets', 'x64']

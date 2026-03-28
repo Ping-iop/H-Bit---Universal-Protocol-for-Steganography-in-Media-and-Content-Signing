@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\formats\video.py
+# hypothesis_version: 6.151.8
+
+[0.0, 0.6, '.', '.avi', '0', '1', 'FFV1', 'avi', 'bytes_per_frame', 'format', 'fourcc', 'fps', 'frame_shape', 'height', 'keyframe_count', 'keyframe_indices', 'mkv', 'mov', 'mp4', 'mp4v', 'total_frames', 'webm', 'width']

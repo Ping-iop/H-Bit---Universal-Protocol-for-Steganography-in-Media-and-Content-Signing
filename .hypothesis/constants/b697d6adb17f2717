@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\formats\base.py
+# hypothesis_version: 6.151.8
+
+['.', 'audio', 'document', 'generic', 'image', 'video']

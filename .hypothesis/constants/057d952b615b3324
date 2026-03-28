@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\rounding.py
+# hypothesis_version: 6.151.8
+
+['?->?', 'B->B', 'H->H', 'I->I', 'L->L', 'Q->Q', 'b->b', 'cupy_ceil', 'cupy_fix', 'cupy_floor', 'cupy_rint', 'cupy_trunc', 'd->d', 'e->e', 'f->f', 'h->h', 'i->i', 'l->l', 'out0 = ceil(in0)', 'out0 = floor(in0)', 'out0 = in0', 'out0 = trunc(in0)', 'q->q', 'rint']

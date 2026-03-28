@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\fft\_fft.py
+# hypothesis_version: 6.151.8
+
+[1.0, 'A', 'C', 'C2C', 'C2R', 'F', 'Plan1d', 'PlanNd', 'R2C', 'a must be contiguous', 'backward', 'forward', 'legacy', 'ortho']

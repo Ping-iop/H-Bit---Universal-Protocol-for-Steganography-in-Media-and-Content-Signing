@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\sumprod.py
+# hypothesis_version: 6.151.8
+
+[-2.0, -1.5, -0.5, 0.5, 1.0, 1.5, 2.0, 'FD', 'T a, T val', 'T out', 'cupy_replace_nan', 'same_kind']

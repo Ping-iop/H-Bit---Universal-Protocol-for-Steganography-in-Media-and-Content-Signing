@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\arithmetic.py
+# hypothesis_version: 6.151.8
+
+['?->?', 'B', 'B->B', 'BB->B', 'D', 'D->d', 'DD->D', 'F', 'F->f', 'FF->D', 'H', 'H->H', 'HH->H', 'I', 'I->I', 'II->I', 'L', 'L->L', 'LL->L', 'Q', 'Q->Q', 'QQ->Q', 'b', 'b->b', 'bb->b', 'cupy_float_power', 'cupy_fmod', 'cupy_imag', 'cupy_modf', 'cupy_real', 'cupy_reciprocal', 'd', 'd->d', 'd->dd', 'dd->d', 'e', 'e->e', 'e->ee', 'ee->e', 'f', 'f->f', 'f->ff', 'ff->f', 'h', 'h->h', 'hh->h', 'i', 'i->i', 'ii->i', 'l', 'l->l', 'll->l', 'out0 = 0', 'out0 = 1 / in0', 'out0 = in0', 'out0 = in0.imag()', 'out0 = in0.real()', 'out0 = pow(in0, in1)', 'q', 'q->q', 'qq->q']

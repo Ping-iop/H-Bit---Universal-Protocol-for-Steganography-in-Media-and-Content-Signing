@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\encoders\dct.py
+# hypothesis_version: 6.151.8
+
+[0.0, 0.3, 0.4, 0.5, 1.0, 2.0, 15.0, 25.0, 50.0, 60.0, 128.0, 2000.0, 255, 'ortho', 'same', 'symm']

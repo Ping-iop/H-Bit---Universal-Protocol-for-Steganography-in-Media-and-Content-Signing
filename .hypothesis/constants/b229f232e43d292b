@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\httpcore\_async\__init__.py
+# hypothesis_version: 6.151.8
+
+['AsyncConnectionPool', 'AsyncHTTP2Connection', 'AsyncHTTPConnection', 'AsyncHTTPProxy', 'AsyncSOCKSProxy']

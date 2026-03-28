@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cuda\pathfinder\_headers\supported_nvidia_headers.py
+# hypothesis_version: 6.151.8
+
+['cccl', 'cublas', 'cublas.h', 'cuda/std/version', 'cuda_runtime.h', 'cudart', 'cufft', 'cufft.h', 'cufile', 'cufile.h', 'curand', 'curand.h', 'cusolver', 'cusolverDn.h', 'cusparse', 'cusparse.h', 'cusparseLt', 'cusparseLt.h', 'cutensor', 'cutensor.h', 'cutensor/include', 'fatbinary_section.h', 'npp', 'npp.h', 'nvFatbin.h', 'nvJitLink.h', 'nvcc', 'nvfatbin', 'nvidia/cu13/include', 'nvidia/cufft/include', 'nvidia/npp/include', 'nvjitlink', 'nvjpeg', 'nvjpeg.h', 'nvrtc', 'nvrtc.h', 'nvshmem', 'nvshmem.h', 'nvvm', 'nvvm.h']

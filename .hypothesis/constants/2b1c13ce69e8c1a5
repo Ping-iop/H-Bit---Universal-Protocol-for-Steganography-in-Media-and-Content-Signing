@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_sorting\search.py
+# hypothesis_version: 6.151.8
+
+['?', '???->?', '?BB->B', '?DD->D', '?FF->F', '?HH->H', '?II->I', '?LL->L', '?QQ->Q', '?bb->b', '?dd->d', '?ee->e', '?ff->f', '?hh->h', '?ii->i', '?ll->l', '?qq->q', 'a', 'biu', 'bool out', 'bool out, int64 y', 'c', 'cupy_exists_kernel', 'cupy_where', 'i', 'int64 y', 'left', 'right', 'u']

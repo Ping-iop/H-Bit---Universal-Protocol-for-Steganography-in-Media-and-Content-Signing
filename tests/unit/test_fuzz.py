@@ -19,6 +19,7 @@ from hypothesis import strategies as st
 from hbit.core.signature import (
     HBitPayload,
     PayloadFlags,
+    OriginType,
     PROTOCOL_VERSION,
 )
 from hbit.core.sync import find_payload_boundaries
@@ -64,10 +65,10 @@ class TestFuzzDeserialization:
         except (ValueError, struct.error, IndexError):
             pass
 
-    @given(data=st.binary(min_size=74, max_size=300))
+    @given(data=st.binary(min_size=107, max_size=300))
     @settings(max_examples=100, suppress_health_check=[HealthCheck.too_slow])
     def test_deserialize_minimum_size(self, data):
-        """Datos >= 74 bytes (core min size) con header correcto."""
+        """Datos >= 107 bytes (core min size) con header correcto."""
         # Forzar header válido
         data = struct.pack("!BB", PROTOCOL_VERSION, int(PayloadFlags.HAS_CONTENT_HASH)) + data[2:]
         try:
@@ -114,11 +115,12 @@ class TestFuzzRoundtrip:
         """serialize_core → deserialize_core debe preservar datos."""
         payload = HBitPayload(
             version=PROTOCOL_VERSION,
-            flags=PayloadFlags.HAS_CONTENT_HASH | PayloadFlags.HAS_TIMESTAMP,
+            flags=PayloadFlags.HAS_CONTENT_HASH | PayloadFlags.HAS_ECC,
+            origin_type=OriginType.UNKNOWN,
             author_hash=author,
+            content_hash=content,
+            timestamp=timestamp,
         )
-        payload.content_hash = content
-        payload.timestamp = timestamp
 
         serialized = payload.serialize_core()
         recovered = HBitPayload.deserialize_core(serialized)
@@ -126,4 +128,5 @@ class TestFuzzRoundtrip:
         assert recovered.author_hash == author
         assert recovered.content_hash == content
         assert abs(recovered.timestamp - timestamp) < 1e-6
+        assert recovered.origin_type == OriginType.UNKNOWN
 

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cuda\pathfinder\_binaries\supported_nvidia_binaries.py
+# hypothesis_version: 6.151.8
+
+['bin', 'bin2c', 'compute-sanitizer', 'cuda-gdb', 'cuda-gdbserver', 'cuda_nvcc', 'cuobjdump', 'fatbinary', 'ncu', 'nsight-compute', 'nsight-sys', 'nsight_compute', 'nsight_systems', 'nsys', 'nvcc', 'nvdisasm', 'nvidia', 'nvlink', 'nvprof', 'nvprune']

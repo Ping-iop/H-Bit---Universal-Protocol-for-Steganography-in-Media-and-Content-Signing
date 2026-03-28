@@ -158,10 +158,6 @@ def decode_lsb(
     boundaries = find_payload_boundaries(raw_bits, threshold=0.85)
 
     if not boundaries:
-        # Intentar con umbral más bajo si no se encuentra nada
-        boundaries = find_payload_boundaries(raw_bits, threshold=0.70)
-
-    if not boundaries:
         return LSBDecodeResult(
             payload_bits="",
             payloads_found=0,
@@ -169,17 +165,21 @@ def decode_lsb(
             raw_bits=raw_bits,
         )
 
-    # 3. Extraer todos los payloads encontrados
-    payloads = []
+    # 3. Extraer payloads alineados a byte dentro del rango válido H-Bit.
+    #    Core mínimo: 107 bytes = 856 bits (version+flags+origin+hashes+timestamp+model_id)
+    #    Core máximo + ECC + Signature: ~200 bytes (1600 bits)
+    #    Los hashes aleatorios en el payload impiden compresión efectiva,
+    #    así que el tamaño real siempre está cerca de 856 bits.
+    MIN_PAYLOAD_BITS = 800
+    MAX_PAYLOAD_BITS = 1600
+
+    all_payloads = []
     for start, end in boundaries:
-        payload = raw_bits[start:end]
-        if payload_bit_length is None or len(payload) == payload_bit_length:
-            payloads.append(payload)
-        elif payload_bit_length is not None and len(payload) >= payload_bit_length:
-            # Si es más largo, truncar al tamaño esperado
-            payloads.append(payload[:payload_bit_length])
+        length = end - start
+        if length % 8 == 0 and MIN_PAYLOAD_BITS <= length <= MAX_PAYLOAD_BITS:
+            all_payloads.append(raw_bits[start:end])
 
-    if not payloads:
+    if not all_payloads:
         return LSBDecodeResult(
             payload_bits="",
             payloads_found=0,
@@ -187,12 +187,27 @@ def decode_lsb(
             raw_bits=raw_bits,
         )
 
-    # 4. Votación mayoritaria si hay múltiples copias
-    if len(payloads) > 1:
-        final_payload, confidence = _majority_vote(payloads)
-    else:
-        final_payload = payloads[0]
-        confidence = 1.0 / max(1, len(boundaries))  # Una sola copia → baja confianza
+    # Agrupar por longitud — tomar la longitud MÁS CORTA con >=3 ocurrencias.
+    # Las longitudes más largas son boundaries fantasma que abarcan múltiples
+    # copias adyacentes del payload (falsos positivos de sync solapados).
+    from collections import Counter
+    length_counts = Counter(len(p) for p in all_payloads)
+
+    # Ordenar por longitud ascendente y tomar la primera con >=3 ocurrencias
+    sorted_by_length = sorted(length_counts.items(), key=lambda x: x[0])
+    target_length = sorted_by_length[0][0]  # fallback: la más corta
+    for length, count in sorted_by_length:
+        if count >= 3:
+            target_length = length
+            break
+
+    payloads = [p for p in all_payloads if len(p) == target_length]
+
+    # 4. Usar la primera copia del payload.
+    #    Para formatos lossless (PNG/BMP), la primera copia es siempre perfecta.
+    #    Las copias posteriores pueden estar en la zona post-payload (ruido).
+    final_payload = payloads[0]
+    confidence = min(1.0, len(payloads) / 10.0)  # Más copias = más confianza
 
     return LSBDecodeResult(
         payload_bits=final_payload,

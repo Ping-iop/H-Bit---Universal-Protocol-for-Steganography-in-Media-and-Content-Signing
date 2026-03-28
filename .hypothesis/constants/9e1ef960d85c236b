@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\forensics\luminance.py
+# hypothesis_version: 6.151.8
+
+[0.0, 1e-10, 0.0722, 0.1, 0.2126, 0.3, 0.5, 0.6, 0.7152, 1.0, 50.0, 90.0, 180, 360, 'edge_count', 'is_natural', 'shadow_coverage', 'shadow_softness']

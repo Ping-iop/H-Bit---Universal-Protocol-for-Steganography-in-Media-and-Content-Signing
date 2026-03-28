@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\resilience\anchor_grid.py
+# hypothesis_version: 6.151.8
+
+[1.0, 5.0, 15.0, 128.0, 255, 'ortho']

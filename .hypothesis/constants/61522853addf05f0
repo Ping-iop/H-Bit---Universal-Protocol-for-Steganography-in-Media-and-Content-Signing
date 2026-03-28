@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_binary\packing.py
+# hypothesis_version: 6.151.8
+
+['T unpacked', 'big', 'biu', 'cupy_packbits_big', 'cupy_packbits_little', 'cupy_unpackbits_big', 'little', 'raw uint8 a', 'uint8 packed']

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\ufunc.py
+# hypothesis_version: 6.151.8
+
+['D->D', 'DD->D', 'F->F', 'FF->F', 'd->d', 'dd->d', 'e->e', 'ee->e', 'f->f', 'ff->f', 'out0 = %s(in0)', 'out0 = %s(in0, in1)']

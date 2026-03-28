@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\rational.py
+# hypothesis_version: 6.151.8
+
+['??->?', 'BB->B', 'HH->H', 'II->I', 'LL->L', 'QQ->Q', 'bb->b', 'cupy_gcd', 'cupy_lcm', 'hh->h', 'ii->i', 'll->l', 'out0 = gcd(in0, in1)', 'out0 = lcm(in0, in1)', 'qq->q']

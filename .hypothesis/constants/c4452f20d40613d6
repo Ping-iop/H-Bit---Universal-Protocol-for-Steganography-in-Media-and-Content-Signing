@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_statistics\correlation.py
+# hypothesis_version: 6.151.8
+
+[0.0, 'Input must be <= 2-d', 'Unsupported method', 'bBhHiIlLqQ', 'ddof must be integer', 'direct', 'fft', 'valid', 'y must be <= 2-d']

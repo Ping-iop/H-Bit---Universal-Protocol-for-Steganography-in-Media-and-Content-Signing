@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupyx\scipy\sparse\_dia.py
+# hypothesis_version: 6.151.8
+
+['0', 'a + b', 'dia', 'dia_nnz', 'i', 'int32 nnz', 'int32 row, bool mask', 'nnz = a']

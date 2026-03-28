@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_functional\piecewise.py
+# hypothesis_version: 6.151.8
+
+['T y', 'bool cond, T value', 'if (cond) y = value']

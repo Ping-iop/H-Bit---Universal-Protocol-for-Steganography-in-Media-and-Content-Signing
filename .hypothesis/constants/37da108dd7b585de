@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupyx\scipy\sparse\_coo.py
+# hypothesis_version: 6.151.8
+
+['C', 'F', 'T diff', 'b', 'c', 'coo', 'd', 'f', 'i', 'invalid input format', 'r', 'raw T row, raw T col']

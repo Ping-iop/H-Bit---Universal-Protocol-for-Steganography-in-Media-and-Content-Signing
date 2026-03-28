@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_core\_fusion_op.py
+# hypothesis_version: 6.151.8
+
+['${type} ${lvar};', '${var} = ${lvar};', ', ', ';', 'block_stride_', 'i', 'in{}', 'out{}', 'typedef {} {}_type;', '{op_name}({params});', '{} &{}_', '{} {} = ({}) {}_;', '{}({}, {});', '{}_ = {};', '{}_op', '{}_postmap']

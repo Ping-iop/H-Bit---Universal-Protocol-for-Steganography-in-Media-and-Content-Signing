@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\blockchain\c2pa.py
+# hypothesis_version: 6.151.8
+
+['%Y-%m-%dT%H:%M:%SZ', 'Ed25519', 'H-Bit Protocol/0.1.0', 'action', 'actions', 'alg', 'algorithm', 'assertion_count', 'assertions', 'author_hash', 'c2pa.actions', 'c2pa.created', 'c2pa.hash.data', 'cbor', 'claim', 'claim_generator', 'data', 'dc:format', 'dc:title', 'embedding_method', 'exclusions', 'format', 'hash', 'hbit.device', 'hbit.signature', 'hbit_binding', 'hybrid_lsb_dct', 'image/png', 'instanceID', 'jumbf manifest', 'kind', 'label', 'length', 'manifest_hash', 'name', 'payload_hash', 'protocol_version', 'sha256', 'signature', 'softwareAgent', 'start', 'title', 'type', 'when']

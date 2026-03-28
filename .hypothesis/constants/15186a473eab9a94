@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\linalg\_einsum_cutn.py
+# hypothesis_version: 6.151.8
+
+['.', 'auto', 'bindings', 'blocking', 'cutensornet', 'cutn_handle_cache', 'device_id', 'dtype', 'einsum_path', 'greedy', 'handle', 'optimize', 'path']

@@ -210,8 +210,12 @@ class ImageHandler(MediaHandler):
                 lsb_result = decode_lsb(image_data, channel=ch)
                 if lsb_result.payloads_found > 0:
                     print(f"DEBUG: LSB Found in channel {ch}")
+                    # Re-envolver con sync markers para que UniversalDecoder
+                    # pueda desenvolver de manera consistente con todos los handlers.
+                    # decode_lsb ya quitó los sync markers internamente.
+                    rewrapped = wrap_payload_with_sync(lsb_result.payload_bits)
                     return ExtractResult(
-                        payload_bits=lsb_result.payload_bits,
+                        payload_bits=rewrapped,
                         confidence=lsb_result.confidence,
                         strategy_used=EmbeddingStrategy.LSB,
                         payloads_found=lsb_result.payloads_found,

@@ -2,10 +2,16 @@
 Estructura del payload H-Bit (firma serializada).
 
 Define la estructura binaria del payload que se incrusta en la imagen:
-[SYNC_HEADER][VERSION][FLAGS][AUTHOR_HASH][CONTENT_HASH][TIMESTAMP][SIGNATURE][ECC_PARITY][SYNC_FOOTER]
+[SYNC_HEADER][VERSION][FLAGS][ORIGIN_TYPE][AUTHOR_HASH][CONTENT_HASH][TIMESTAMP][SIGNATURE][ECC_PARITY][SYNC_FOOTER]
 
 Cada campo tiene longitud fija para facilitar la sincronización
 y la extracción incluso desde fragmentos dañados.
+
+El campo ORIGIN_TYPE (1 byte) indica la procedencia del contenido:
+  0x00 = HUMAN       — Creado por un ser humano
+  0x01 = AI_GENERATED — Generado completamente por IA
+  0x02 = AI_ASSISTED  — Creación humana con asistencia de IA
+  0xFF = UNKNOWN      — Origen no declarado
 """
 
 from __future__ import annotations
@@ -27,6 +33,22 @@ TIMESTAMP_LENGTH = 8       # double (64-bit float)
 SIGNATURE_LENGTH = 64      # Ed25519
 VERSION_LENGTH = 1         # uint8
 FLAGS_LENGTH = 1           # uint8
+ORIGIN_TYPE_LENGTH = 1     # uint8
+AI_MODEL_ID_LENGTH = 32    # SHA-256 hash del identificador del modelo IA
+
+
+class OriginType(IntEnum):
+    """Tipo de origen del contenido firmado.
+
+    Indica si el contenido fue creado por un humano, generado por IA,
+    o es una colaboración humano-IA. Este campo es fundamental para
+    la trazabilidad en la era de la IA generativa.
+    """
+
+    HUMAN = 0x00           # Creado íntegramente por un ser humano
+    AI_GENERATED = 0x01    # Generado completamente por IA (ej: Midjourney, DALL-E)
+    AI_ASSISTED = 0x02     # Creación humana con herramientas de IA (ej: retoque con IA)
+    UNKNOWN = 0xFF         # Origen no declarado o desconocido
 
 
 class EncodingMethod(IntEnum):
@@ -49,6 +71,8 @@ class PayloadFlags(IntFlag):
     USES_KDF = 1 << 5             # Clave derivada con KDF (no maestra)
     IS_ENCRYPTED = 1 << 6         # El payload está cifrado
     IS_COMPRESSED = 1 << 7        # El payload está comprimido (zlib)
+    # Nota: HAS_ORIGIN_TYPE no necesita flag propio — origin_type siempre
+    # está presente (default UNKNOWN=0xFF). El campo es obligatorio desde v1.
 
     @classmethod
     def default(cls) -> PayloadFlags:
@@ -65,9 +89,11 @@ class HBitPayload:
     Attributes:
         version: Versión del protocolo (para compatibilidad futura).
         flags: Flags indicando qué campos están presentes.
+        origin_type: Tipo de origen del contenido (humano, IA, asistido por IA).
         author_hash: Hash SHA-256 de la identidad del autor (32 bytes).
         content_hash: Hash SHA-256 del contenido de la imagen (32 bytes, opcional).
         timestamp: Marca de tiempo Unix de la creación.
+        ai_model_id: Hash SHA-256 del identificador del modelo IA (32 bytes, si aplica).
         signature: Firma digital Ed25519 del payload (64 bytes, opcional).
         ecc_parity: Bytes de paridad Reed-Solomon (longitud variable, opcional).
         c2pa_reference: URI de manifiesto C2PA (bytes, opcional).
@@ -77,9 +103,11 @@ class HBitPayload:
 
     version: int
     flags: PayloadFlags
+    origin_type: OriginType
     author_hash: bytes
     content_hash: bytes
     timestamp: float
+    ai_model_id: bytes = b"\x00" * AI_MODEL_ID_LENGTH
     signature: bytes = b""
     ecc_parity: bytes = b""
     c2pa_reference: bytes = b""
@@ -93,6 +121,8 @@ class HBitPayload:
         content_hash: bytes | None = None,
         timestamp: float | None = None,
         flags: PayloadFlags | None = None,
+        origin_type: OriginType = OriginType.UNKNOWN,
+        ai_model_id: str | None = None,
     ) -> HBitPayload:
         """Crea un nuevo payload H-Bit.
 
@@ -101,6 +131,10 @@ class HBitPayload:
             content_hash: Hash del contenido (32 bytes, opcional).
             timestamp: Marca de tiempo. Si es None, se usa la hora actual.
             flags: Flags del payload. Si es None, se usan los defaults.
+            origin_type: Tipo de origen del contenido (HUMAN, AI_GENERATED, AI_ASSISTED, UNKNOWN).
+            ai_model_id: Identificador del modelo IA (ej: "gpt-4o", "midjourney-v6").
+                         Se hashea a SHA-256 para almacenamiento. Solo relevante si
+                         origin_type es AI_GENERATED o AI_ASSISTED.
 
         Returns:
             HBitPayload configurado.
@@ -129,12 +163,17 @@ class HBitPayload:
         if flags is None:
             flags = PayloadFlags.default()
 
+        # Derivar AI model ID hash
+        model_id_hash = _compute_ai_model_id_hash(ai_model_id)
+
         return cls(
             version=PROTOCOL_VERSION,
             flags=flags,
+            origin_type=origin_type,
             author_hash=author_hash,
             content_hash=content_hash,
             timestamp=timestamp,
+            ai_model_id=model_id_hash,
         )
 
     def encrypt_payload(self, passphrase: str) -> bytes:
@@ -234,21 +273,25 @@ class HBitPayload:
         El formato binario es:
         - 1 byte:  versión del protocolo
         - 1 byte:  flags
+        - 1 byte:  origin_type (tipo de origen: humano/IA/asistido)
         - 32 bytes: author_hash
         - 32 bytes: content_hash
         - 8 bytes:  timestamp (double)
-        = 74 bytes total de core
+        - 32 bytes: ai_model_id (hash del identificador del modelo IA)
+        = 107 bytes total de core
 
         Returns:
             bytes con el payload core serializado.
         """
         return struct.pack(
-            f"!BB{AUTHOR_HASH_LENGTH}s{CONTENT_HASH_LENGTH}sd",
+            f"!BBB{AUTHOR_HASH_LENGTH}s{CONTENT_HASH_LENGTH}sd{AI_MODEL_ID_LENGTH}s",
             self.version,
             int(self.flags),
+            int(self.origin_type),
             self.author_hash,
             self.content_hash,
             self.timestamp,
+            self.ai_model_id,
         )
 
     def serialize(self) -> bytes:
@@ -332,14 +375,6 @@ class HBitPayload:
             try:
                 # El resto es stream zlib
                 decompressed_body = imported_zlib.decompress(data[2:])
-                # Reconstruir payload raw: [Ver][OrigFlags][Body]
-                # Nota: al serializar, 'flags' tenía IS_COMPRESSED.
-                # Queremos restaurar el payload original. El payload original NO tenía IS_COMPRESSED activado permanentemente en el objeto (solo en tránsito).
-                # Pero serialize() modificó el flag en el header de salida.
-                # Al decompress, necesitamos restaurar el buffer completo para una llamada recursiva?
-                # No, deserialize_core espera el formato plano.
-                # Podemos llamar recursivamente con un header "limpio" (sin IS_COMPRESSED).
-                
                 # Restaurar flags originales (quitar IS_COMPRESSED)
                 orig_flags = flags & ~PayloadFlags.IS_COMPRESSED
                 clean_header = struct.pack("!BB", version, int(orig_flags))
@@ -350,7 +385,11 @@ class HBitPayload:
                 raise ValueError(f"Fallo al descomprimir payload: {e}")
 
         # Lógica estándar para payload no comprimido
-        core_size = VERSION_LENGTH + FLAGS_LENGTH + AUTHOR_HASH_LENGTH + CONTENT_HASH_LENGTH + TIMESTAMP_LENGTH
+        core_size = (
+            VERSION_LENGTH + FLAGS_LENGTH + ORIGIN_TYPE_LENGTH
+            + AUTHOR_HASH_LENGTH + CONTENT_HASH_LENGTH
+            + TIMESTAMP_LENGTH + AI_MODEL_ID_LENGTH
+        )
         if len(data) < core_size:
             raise ValueError(
                 f"Datos insuficientes: se necesitan {core_size} bytes, "
@@ -359,6 +398,13 @@ class HBitPayload:
 
         offset = 2
 
+        origin_type_raw = data[offset]
+        try:
+            origin_type = OriginType(origin_type_raw)
+        except ValueError:
+            origin_type = OriginType.UNKNOWN
+        offset += ORIGIN_TYPE_LENGTH
+
         author_hash = data[offset:offset + AUTHOR_HASH_LENGTH]
         offset += AUTHOR_HASH_LENGTH
 
@@ -366,13 +412,19 @@ class HBitPayload:
         offset += CONTENT_HASH_LENGTH
 
         (timestamp,) = struct.unpack_from("!d", data, offset)
+        offset += TIMESTAMP_LENGTH
+
+        ai_model_id = data[offset:offset + AI_MODEL_ID_LENGTH]
+        offset += AI_MODEL_ID_LENGTH
 
         return cls(
             version=version,
             flags=flags,
+            origin_type=origin_type,
             author_hash=author_hash,
             content_hash=content_hash,
             timestamp=timestamp,
+            ai_model_id=ai_model_id,
         )
 
     @property
@@ -386,3 +438,35 @@ class HBitPayload:
         # Se asume payload NO cifrado para este cálculo.
         # Si estuviera cifrado, el tamaño variable del ciphertext complica esto.
         return len(self.serialize()) * 8
+
+    @property
+    def origin_label(self) -> str:
+        """Etiqueta legible del tipo de origen."""
+        labels = {
+            OriginType.HUMAN: "Humano",
+            OriginType.AI_GENERATED: "Generado por IA",
+            OriginType.AI_ASSISTED: "Asistido por IA",
+            OriginType.UNKNOWN: "Desconocido",
+        }
+        return labels.get(self.origin_type, "Desconocido")
+
+    @property
+    def has_ai_model_id(self) -> bool:
+        """Indica si se registró un identificador de modelo IA."""
+        return self.ai_model_id != b"\x00" * AI_MODEL_ID_LENGTH
+
+
+def _compute_ai_model_id_hash(ai_model_id: str | None) -> bytes:
+    """Computa el hash SHA-256 del identificador del modelo IA.
+
+    Args:
+        ai_model_id: Nombre o identificador del modelo (ej: "gpt-4o").
+                     Si es None, retorna bytes nulos.
+
+    Returns:
+        Hash SHA-256 del identificador (32 bytes) o bytes nulos.
+    """
+    if not ai_model_id:
+        return b"\x00" * AI_MODEL_ID_LENGTH
+    import hashlib
+    return hashlib.sha256(ai_model_id.encode("utf-8")).digest()

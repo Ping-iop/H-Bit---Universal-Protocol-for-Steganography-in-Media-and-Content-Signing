@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\scipy\linalg\decomp_qr.py
+# hypothesis_version: 6.151.8
+
+['_decomp_qr', 'decomp_qr', 'get_lapack_funcs', 'linalg', 'qr', 'qr_multiply', 'rq']

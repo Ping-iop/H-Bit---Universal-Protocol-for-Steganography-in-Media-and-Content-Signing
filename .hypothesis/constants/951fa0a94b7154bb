@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cuda\pathfinder\_dynamic_libs\find_nvidia_dynamic_lib.py
+# hypothesis_version: 6.151.8
+
+['*', '*.dll', ', ', 'CONDA_PREFIX', 'Library', 'bin', 'bin/x64', 'lib', 'lib64', 'nvvm', 'nvvm/bin', 'nvvm/bin/*', 'nvvm/lib64']

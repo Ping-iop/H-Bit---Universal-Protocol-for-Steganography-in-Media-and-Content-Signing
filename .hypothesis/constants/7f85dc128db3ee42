@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\formats\audio.py
+# hypothesis_version: 6.151.8
+
+[0.9, '.', '.wav', '1', '<h', 'WAV', 'aiff', 'channels', 'flac', 'format', 'framerate', 'int16', 'n_frames', 'rb', 'sample_width', 'wav', 'wb']

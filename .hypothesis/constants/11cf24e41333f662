@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\linalg\_einsum.py
+# hypothesis_version: 6.151.8
+
+[0.0, 1.0, ',', '-', '->', '.', '.,-> ', '...', '...[%d]', '>', '@', 'broadcast_diagonal', 'dtype', 'einsum_path', 'fewer', 'for operand %d', 'greedy', 'in the output', 'more', 'optimal', 'optimize', 'sum_ellipsis']

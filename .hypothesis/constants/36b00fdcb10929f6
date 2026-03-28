@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\special.py
+# hypothesis_version: 6.151.8
+
+['D->D', 'F->F', 'cupy_i0', 'cupy_sinc', 'cyl_bessel_i0', 'd->d', 'e->e', 'f->f']

@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\linalg\_norms.py
+# hypothesis_version: 6.151.8
+
+['-inf', '?->l', 'B->L', 'D->d', 'F->f', 'H->L', 'I->L', 'L->L', 'Q->Q', '_norm_ord2', '_norm_ord2_complex', 'a + b', 'b->l', 'c', 'd->d', 'e->e', 'f', 'f->f', 'float', 'fro', 'h->l', 'i->l', 'ignore', 'in0 * in0', 'l->l', 'nuc', 'q->q']

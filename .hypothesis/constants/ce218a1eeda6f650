@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\httpx\_types.py
+# hypothesis_version: 6.151.8
+
+['AsyncByteStream', 'Auth', 'Cookies', 'Headers', 'Proxy', 'QueryParams', 'RawURL', 'Request', 'SyncByteStream', 'Timeout', 'URL', 'port', 'raw_host', 'raw_path', 'raw_scheme']

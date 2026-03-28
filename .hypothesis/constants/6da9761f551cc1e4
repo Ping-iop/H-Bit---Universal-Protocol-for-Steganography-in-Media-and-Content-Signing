@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\hyperbolic.py
+# hypothesis_version: 6.151.8
+
+['acosh', 'asinh', 'atanh', 'cosh', 'cupy_arccosh', 'cupy_arcsinh', 'cupy_arctanh', 'cupy_cosh', 'cupy_sinh', 'cupy_tanh', 'sinh', 'tanh']

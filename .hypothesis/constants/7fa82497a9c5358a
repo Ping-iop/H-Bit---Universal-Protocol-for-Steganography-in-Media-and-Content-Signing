@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\random\_kernels.py
+# hypothesis_version: 6.151.8
+
+['S df, uint64 seed', 'T a, uint64 seed', 'T df, uint64 seed', 'T lam, uint64 seed', 'T p, uint64 seed', 'T shape, uint64 seed', 'Y y', 'cupy_beta_kernel', 'cupy_binomial_kernel', 'cupy_f_kernel', 'cupy_poisson_kernel', 'cupy_vonmises_kernel', 'cupy_zipf_kernel', 'uint64 seed']

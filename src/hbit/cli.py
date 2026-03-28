@@ -8,6 +8,12 @@ Proporciona acceso completo al protocolo mediante subcomandos:
   hbit verify   — Verifica autenticidad e integridad
   hbit info     — Muestra información de la firma
   hbit formats  — Lista formatos soportados
+
+Flags de origen (--origin):
+  human        — Contenido creado por un ser humano
+  ai           — Contenido generado completamente por IA
+  ai-assisted  — Contenido humano con asistencia de IA
+  unknown      — Origen no declarado (default)
 """
 
 from __future__ import annotations
@@ -94,10 +100,21 @@ def keygen(output: str):
     help="Usar el pipeline legacy de imágenes (solo PNG/JPG/BMP).",
 )
 @click.option(
-    "--encrypt",
+    '--encrypt',
     is_flag=True,
     default=False,
     help="Cifrar el payload H-Bit (AES-256). Requiere usar passphrase en --key.",
+)
+@click.option(
+    '--origin',
+    type=click.Choice(['human', 'ai', 'ai-assisted', 'unknown'], case_sensitive=False),
+    default='unknown',
+    help="Declarar el origen del contenido: human, ai, ai-assisted, unknown.",
+)
+@click.option(
+    '--ai-model',
+    default=None,
+    help="Identificador del modelo IA (ej: 'gpt-4o', 'midjourney-v6'). Solo relevante con --origin ai o ai-assisted.",
 )
 def encode(
     input_path: str,
@@ -108,6 +125,8 @@ def encode(
     no_kdf: bool,
     legacy: bool,
     encrypt: bool,
+    origin: str,
+    ai_model: str | None,
 ):
     """Incrusta una firma H-Bit en cualquier archivo."""
     from hbit.core.crypto import HBitKeyPair
@@ -138,15 +157,26 @@ def encode(
         try:
             _encode_universal(
                 input_path, author_key, output_path, no_kdf, encrypt,
+                origin, ai_model,
             )
         except ValueError as e:
             click.echo(f"Error: {e}")
             raise SystemExit(1)
 
 
-def _encode_universal(input_path, author_key, output_path, no_kdf, encrypt=False):
+def _encode_universal(input_path, author_key, output_path, no_kdf, encrypt=False, origin='unknown', ai_model=None):
     """Codificación universal via MediaRegistry."""
+    from hbit.core.signature import OriginType
     from hbit.universal import UniversalEncoder
+
+    # Mapear string CLI a OriginType enum
+    origin_map = {
+        'human': OriginType.HUMAN,
+        'ai': OriginType.AI_GENERATED,
+        'ai-assisted': OriginType.AI_ASSISTED,
+        'unknown': OriginType.UNKNOWN,
+    }
+    origin_type = origin_map.get(origin, OriginType.UNKNOWN)
 
     encoder = UniversalEncoder(use_kdf=not no_kdf)
     input_file = Path(input_path)
@@ -155,11 +185,24 @@ def _encode_universal(input_path, author_key, output_path, no_kdf, encrypt=False
     if encrypt:
         click.echo("🔒 Modo cifrado habilitado (AES-256-GCM)")
 
+    # Mostrar origen declarado
+    origin_labels = {
+        'human': '👤 Origen: Humano',
+        'ai': '🤖 Origen: Generado por IA',
+        'ai-assisted': '🤝 Origen: Asistido por IA',
+        'unknown': '❓ Origen: No declarado',
+    }
+    click.echo(origin_labels.get(origin, '❓ Origen: No declarado'))
+    if ai_model:
+        click.echo(f"  · Modelo IA: {ai_model}")
+
     result = encoder.encode(
         file_path=input_path,
         author_key=author_key,
         output_path=output_path,
         encrypt=encrypt,
+        origin_type=origin_type,
+        ai_model_id=ai_model,
     )
 
     click.echo(f"✓ Archivo firmado guardado: {result.output_path}")
@@ -168,6 +211,7 @@ def _encode_universal(input_path, author_key, output_path, no_kdf, encrypt=False
     click.echo(f"  · Estrategia:{result.strategy_used}")
     click.echo(f"  · Autor:     {result.author_hash[:32]}...")
     click.echo(f"  · Contenido: {result.content_hash[:32]}...")
+    click.echo(f"  · Origen:    {result.origin_type}")
     click.echo(f"  · Bits:      {result.bits_embedded}")
     click.echo(f"  · Capacidad: {result.capacity_used:.1%}")
 
@@ -249,6 +293,9 @@ def _decode_universal(input_path, passphrase=None):
     click.echo(f"  · Contenido: {result.content_hash[:32]}...")
     click.echo(f"  · Timestamp: {result.timestamp}")
     click.echo(f"  · Confianza: {result.confidence:.1%}")
+    click.echo(f"  · Origen:    {result.origin_label}")
+    if result.ai_model_id:
+        click.echo(f"  · Modelo IA: {result.ai_model_id[:32]}...")
 
 
 def _decode_legacy(input_path, channel):
@@ -325,6 +372,9 @@ def _verify_universal(input_path, author, passphrase=None):
     if result.decode_result:
         click.echo(f"  · Tipo:      {result.decode_result.media_category}")
         click.echo(f"  · Confianza: {result.decode_result.confidence:.1%}")
+        click.echo(f"  · Origen:    {result.decode_result.origin_label}")
+        if result.decode_result.ai_model_id:
+            click.echo(f"  · Modelo IA: {result.decode_result.ai_model_id[:32]}...")
 
     if result.status.value in ("NOT_FOUND", "INVALID", "TAMPERED"):
         raise SystemExit(1)
@@ -442,10 +492,21 @@ def list_formats():
     help="Procesar subdirectorios recursivamente.",
 )
 @click.option(
-    "--encrypt",
+    '--encrypt',
     is_flag=True,
     default=False,
     help="Cifrar los payloads H-Bit.",
+)
+@click.option(
+    '--origin',
+    type=click.Choice(['human', 'ai', 'ai-assisted', 'unknown'], case_sensitive=False),
+    default='unknown',
+    help="Declarar el origen del contenido para todo el batch.",
+)
+@click.option(
+    '--ai-model',
+    default=None,
+    help="Identificador del modelo IA para todo el batch.",
 )
 def batch(
     dir_path: str,
@@ -453,11 +514,23 @@ def batch(
     output_dir: str | None,
     recursive: bool,
     encrypt: bool,
+    origin: str,
+    ai_model: str | None,
 ):
     """Firma todos los archivos de un directorio en batch."""
     from hbit.core.crypto import HBitKeyPair
+    from hbit.core.signature import OriginType
     from hbit.formats import MediaRegistry
     from hbit.universal import UniversalEncoder
+
+    # Mapear string CLI a OriginType enum
+    origin_map = {
+        'human': OriginType.HUMAN,
+        'ai': OriginType.AI_GENERATED,
+        'ai-assisted': OriginType.AI_ASSISTED,
+        'unknown': OriginType.UNKNOWN,
+    }
+    origin_type = origin_map.get(origin, OriginType.UNKNOWN)
 
     input_dir = Path(dir_path)
     out_dir = Path(output_dir) if output_dir else input_dir / "signed"
@@ -486,6 +559,9 @@ def batch(
 
     click.echo(f"Batch: {len(files)} archivos en {input_dir}")
     click.echo(f"Salida: {out_dir}")
+    click.echo(f"Origen: {origin}")
+    if ai_model:
+        click.echo(f"Modelo IA: {ai_model}")
     click.echo()
 
     encoder = UniversalEncoder()
@@ -498,8 +574,13 @@ def batch(
             dest = out_dir / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
 
-            result = encoder.encode(f, author_key, dest, encrypt=encrypt)
-            click.echo(f"  [OK] {rel} ({result.strategy_used})")
+            result = encoder.encode(
+                f, author_key, dest,
+                encrypt=encrypt,
+                origin_type=origin_type,
+                ai_model_id=ai_model,
+            )
+            click.echo(f"  [OK] {rel} ({result.strategy_used}) [{result.origin_type}]")
             success += 1
         except Exception as e:
             click.echo(f"  [ERR] {rel}: {e}")

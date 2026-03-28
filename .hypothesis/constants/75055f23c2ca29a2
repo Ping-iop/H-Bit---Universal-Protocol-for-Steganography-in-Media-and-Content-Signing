@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\cuda\__init__.py
+# hypothesis_version: 6.151.8
+
+['.', 'CUPY_CI', 'READTHEDOCS', 'True', 'cublas', 'cufft', 'cupy.cuda.cufft', 'cupy.cuda.jitify', 'cupy.cuda.nvtx', 'cupy.cuda.thrust', 'curand', 'cusolver', 'cusparse', 'jitify', '{}_enabled']

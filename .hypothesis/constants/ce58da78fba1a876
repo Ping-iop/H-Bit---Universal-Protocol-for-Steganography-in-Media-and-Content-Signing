@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_creation\ranges.py
+# hypothesis_version: 6.151.8
+
+[0.0, 1.0, 10.0, 'BB->B', 'DD->D', 'FF->F', 'HH->H', 'II->I', 'LL->L', 'QQ->Q', 'bb->b', 'copy', 'cupy_arange', 'cupy_linspace', 'dd->d', 'ddd->d', 'ee->e', 'f', 'ff->f', 'hh->h', 'ii->i', 'ij', 'indexing', 'input has to be 1d', 'iu', 'll->l', 'nan', 'out0 = in0 + i * in1', 'qq->q', 'sparse', 'xy']

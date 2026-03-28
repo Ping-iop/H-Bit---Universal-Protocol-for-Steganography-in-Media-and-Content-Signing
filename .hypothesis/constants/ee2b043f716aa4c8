@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\window.py
+# hypothesis_version: 6.151.8
+
+[1.0, 2.0, 'T arr', 'cupy_bartlett', 'cupy_blackman', 'cupy_hamming', 'cupy_hanning', 'cupy_kaiser', 'float32 alpha', 'float64 out']

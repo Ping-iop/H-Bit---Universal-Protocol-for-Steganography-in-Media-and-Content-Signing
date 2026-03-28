@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_core\_ufuncs.py
+# hypothesis_version: 6.151.8
+
+['?->?', 'B->B', 'D->D', 'F->F', 'H->H', 'I->I', 'L->L', 'Q->Q', 'b->b', 'cupy_copy', 'd->d', 'e->e', 'f->f', 'h->h', 'i->i', 'l->l', 'out0 = in0', 'q->q', 'unsafe']

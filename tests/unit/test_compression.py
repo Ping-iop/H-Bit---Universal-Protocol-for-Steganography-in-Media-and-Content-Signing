@@ -49,19 +49,22 @@ class TestPayloadCompression:
 
     def test_compression_high_entropy(self):
         """Verifica que NO se comprime si los datos son aleatorios."""
+        from hbit.core.signature import OriginType
         payload = HBitPayload.create(
             author_hash=os.urandom(32),
             content_hash=os.urandom(32),
+            origin_type=OriginType.HUMAN,
+            ai_model_id="random-model-" + os.urandom(16).hex(),
         )
-        # ECC aleatorio
-        payload.ecc_parity = os.urandom(100)
+        # ECC aleatorio (suficiente para que zlib no pueda comprimir)
+        payload.ecc_parity = os.urandom(200)
         payload.flags |= PayloadFlags.HAS_ECC
 
         serialized = payload.serialize()
         
-        # Headers (2) + CoreHashes (64) + Time (8) + ECCLen (2) + ECC (100) = ~176 bytes
-        # Si zlib comprime random, añade overhead. Así que len > original.
-        # Mi lógica rechaza compresión si len_compressed >= len_raw.
+        # Core ahora: Headers (3) + AuthorHash (32) + ContentHash (32) + Time (8)
+        #   + AIModelID (32) + ECCLen (2) + ECC (200) = ~309 bytes
+        # Con datos 100% aleatorios, zlib añade overhead → compresión rechazada.
         
         # Verificar header
         version, flags_int = struct.unpack_from("!BB", serialized, 0)

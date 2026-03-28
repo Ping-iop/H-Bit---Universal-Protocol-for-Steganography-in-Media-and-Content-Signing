@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\scipy\signal\_upfirdn.py
+# hypothesis_version: 6.151.8
+
+['C', '_output_len', 'antireflect', 'antisymmetric', 'constant', 'edge', 'line', 'reflect', 'smooth', 'symmetric', 'upfirdn', 'wrap']

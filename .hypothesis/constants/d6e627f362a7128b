@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\_math\explog.py
+# hypothesis_version: 6.151.8
+
+['D->D', 'F->F', 'cupy_exp', 'cupy_exp2', 'cupy_expm1', 'cupy_log', 'cupy_log10', 'cupy_log1p', 'cupy_log2', 'cupy_logaddexp', 'cupy_logaddexp2', 'd->d', 'dd->d', 'e->e', 'ee->e', 'exp', 'expm1', 'f->f', 'ff->f', 'log', 'log10', 'log1p', 'log2']

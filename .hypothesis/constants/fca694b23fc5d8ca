@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\testing\_helper.py
+# hypothesis_version: 6.151.8
+
+[0.01, '%s not triggerred', '?', 'C', '__doc__', 'always', 'c', 'coo', 'fc', 'u']

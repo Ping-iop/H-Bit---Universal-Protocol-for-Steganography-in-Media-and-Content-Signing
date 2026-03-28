@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\AppData\Roaming\Python\Python311\site-packages\cupy\testing\_loops.py
+# hypothesis_version: 6.151.8
+
+[1e-07, ', ', ', ndim is', ', order is', ', shape is', '0', 'BHILQ', 'C', 'CUPY_CI', 'F', 'axis', 'bhilq', 'c', 'default', 'dtyes', 'dtype', 'f', 'is', 'order', 'skipped: {} ({})', 'test_', 'test_helper.py', 'xp', '{} = {}']

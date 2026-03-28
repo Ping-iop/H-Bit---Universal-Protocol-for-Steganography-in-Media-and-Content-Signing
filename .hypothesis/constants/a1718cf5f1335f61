@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\encoders\hybrid.py
+# hypothesis_version: 6.151.8
+
+[0.0, 25.0, 'dct', 'hybrid', 'lsb', 'none']

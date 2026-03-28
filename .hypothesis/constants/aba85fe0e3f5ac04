@@ -1,0 +1,4 @@
+# file: C:\Users\GPAMD\Documents\GEMINI\DESARROLLO_APPS\H-Bit\src\hbit\formats\document.py
+# hypothesis_version: 6.151.8
+
+[b'\n', b'\n% H-Bit Signature Stream\n', b'\n/Bits ', b'\n>>\nstream\n', b'\nendstream', b'\nendstream\nendobj\n', b'\nstartxref\n', b'\nxref\n', b'\r', b'%%EOF', b'(\\d+)\\s+0\\s+obj', b'/Bits\\s+(\\d+)', b'/HBitSignature', b'/Type /HBitPayload', b'<<\n/Type /HBitPayload\n/V 2\n/Length ', b'ENDHBIT', b'HBITSIGN', b'PK\x03\x04', b'\\d+\\s+0\\s+obj\\b', b'endobj', b'endobj\n', b'stream\n', 0.0, 0.9, 0.95, 100, 200, 1024, '.', '0', '08b', 'PDF', 'ascii', 'big', 'customXml/hbit.xml', 'docx', 'format', 'has_hbit', 'is_zip', 'odp', 'ods', 'odt', 'pdf', 'pptx', 'r', 'size', 'utf-8', 'w', 'xlsx']
