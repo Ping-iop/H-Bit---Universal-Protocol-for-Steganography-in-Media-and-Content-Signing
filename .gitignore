@@ -35,6 +35,9 @@ test_identity.key
 # Pytest
 .pytest_cache/
 
+# Hypothesis property-based testing cache
+.hypothesis/
+
 # HBFS runtime data
 apps/hbfs/data/*.db
 apps/hbfs/input/
