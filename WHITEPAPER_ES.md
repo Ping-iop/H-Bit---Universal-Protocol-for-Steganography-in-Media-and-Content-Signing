@@ -560,34 +560,7 @@ Medido en: Intel i7, 16GB RAM, NVIDIA GPU (Opcional - backend CuPy)
 
 ---
 
-## 17. Hoja de Ruta
-
-### Fase 9: Consolidación de Producción ✅ (Q1 2026)
-- [x] Canal CI/CD (GitHub Actions multi-OS/Python)
-- [x] Pruebas Fuzzing (Herramientas Hypothesis)
-- [x] Imagen multi-estado Docker Engine
-- [x] Pruebas de integración E2E End-To-End (7 Test superados)
-- [x] Resistencia Auto-adaptativa DCT Visual (Máscaras inteligentes)
-- [x] Archivo `CONTRIBUTING.md`
-
-### Fase 10: Expansión de Ecosistema (Q2 2026)
-- [x] Microservicio y WebServer REST-API (`FastAPI` superado / Finalizado).
-- [x] Smart Contract en Solidity (`HBitRegistry.sol` y Mocks superados).
-- [ ] *[POSPUESTO]* Extensión local en explorador para auto-verificación en redes limitadas.
-- [ ] *[POSPUESTO]* WordPress / Drupal System Plugins.
-- [ ] Reescritura PDF parser profundo `PDFHandler` (Enviado al Backlog).
-- [ ] Publicación en `pip install` (PyPI) Release Civil. (Enviado al Backlog).
-
-### Fase 11: Integraciones Físicas y Hardware (Q3 2026+)
-- [x] Arquitectura de diagramas Mock / Investigación teórica finalizada y documentada.
-- [ ] Implementador nativo C/C++ `HBFS` para montar Disco Duro de OS vía FUSE driver/Dokany.
-- [ ] Implementaciones Enclaves (ISP) internas directas de la cámara para firmar en Raw Data Sensor (`.CR2`, `.NEF`).
-- [ ] Integración Física en Módulos de Hardware Militar / Llaves Electrónicas USB (`HSM` / YubiKey en el KeyChain).
-- [ ] Patentes y Licencias Civiles para Dispositivos Móviles (SDK nativo Android & iOS ARM).
-
----
-
-## 18. Referencias
+## 17. Referencias
 
 1. **Ed25519:** Bernstein, D.J., et al. "High-speed high-security signatures." *Journal of Cryptographic Engineering*, 2012.
 2. **HKDF (RFC 5869):** Krawczyk, H., Eronen, P. "HMAC-based Extract-and-Expand Key Derivation Function." IETF, 2010.
