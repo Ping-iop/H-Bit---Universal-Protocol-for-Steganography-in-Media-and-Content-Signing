@@ -897,36 +897,7 @@ Measured on: Intel i7, 16GB RAM, NVIDIA GPU (optional CuPy backend)
 
 ---
 
-## 17. Roadmap
-
-### Phase 9: Production Hardening ✅ (Q1 2026)
-- [x] CI/CD pipeline (GitHub Actions multi-OS/Python)
-- [x] Fuzz testing framework (Hypothesis)
-- [x] Docker multi-stage image
-- [x] Integration tests (E2E)
-- [x] Auto-adaptive DCT strength
-- [x] Batch signing CLI mode
-- [x] CONTRIBUTING.md
-
-### Phase 10: Ecosystem Expansion (Q2 2026)
-- [x] REST API microservice (FastAPI completed)
-- [x] Solidity smart contract deployment (Local eth-tester mock completed)
-- [ ] *[POSTPONED]* Browser extension for in-page verification
-- [ ] *[POSTPONED]* WordPress/CMS plugin
-- [ ] PDF handler content-level rewrite (Moved to backlog)
-- [ ] PyPI package release (Moved to backlog)
-
-### Phase 11: Hardware Integration (Q3 2026+)
-- [x] Hardware architecture planning and mock interfaces (Completed)
-- [ ] FUSE/Dokany HBFS driver native implementation
-- [ ] ISP-level signing (camera firmware)
-- [ ] HSM/TEE integration plugins
-- [ ] Mobile SDK (iOS/Android)
-- [ ] Patent filing for novel contributions
-
----
-
-## 18. References
+## 17. References
 
 1. **Ed25519:** Bernstein, D.J., et al. "High-speed high-security signatures." *Journal of Cryptographic Engineering*, 2012.
 2. **HKDF (RFC 5869):** Krawczyk, H., Eronen, P. "HMAC-based Extract-and-Expand Key Derivation Function." IETF, 2010.
