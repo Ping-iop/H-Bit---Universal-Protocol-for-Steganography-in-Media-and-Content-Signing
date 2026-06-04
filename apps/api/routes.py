@@ -1,6 +1,7 @@
 import os
 import tempfile
 import shutil
+import asyncio
 from pathlib import Path
 from typing import Optional
 
@@ -40,14 +41,25 @@ async def encode_file(
     temp_output = ""
     try:
         _, ext = os.path.splitext(file.filename) if file.filename else ("", "")
-        fd_in, temp_input = tempfile.mkstemp(suffix=ext)
-        with os.fdopen(fd_in, "wb") as f_in:
-            f_in.write(await file.read())
-            
-        fd_out, temp_output = tempfile.mkstemp(suffix=f"_signed{ext}")
-        os.close(fd_out)
         
-        encoder.encode(
+        # Read file data into memory
+        file_data = await file.read()
+
+        def prepare_files():
+            fd_in, t_input = tempfile.mkstemp(suffix=ext)
+            with os.fdopen(fd_in, "wb") as f_in:
+                f_in.write(file_data)
+
+            fd_out, t_output = tempfile.mkstemp(suffix=f"_signed{ext}")
+            os.close(fd_out)
+            return t_input, t_output
+
+        # Run blocking I/O in a separate thread
+        temp_input, temp_output = await asyncio.to_thread(prepare_files)
+
+        # Run heavy encoding process in a separate thread
+        await asyncio.to_thread(
+            encoder.encode,
             file_path=temp_input,
             author_key=passphrase,
             output_path=temp_output,
@@ -85,11 +97,21 @@ async def verify_file(
     temp_input = ""
     try:
         _, ext = os.path.splitext(file.filename) if file.filename else ("", "")
-        fd_in, temp_input = tempfile.mkstemp(suffix=ext)
-        with os.fdopen(fd_in, "wb") as f_in:
-            f_in.write(await file.read())
+
+        file_data = await file.read()
+
+        def prepare_input_file():
+            fd_in, t_input = tempfile.mkstemp(suffix=ext)
+            with os.fdopen(fd_in, "wb") as f_in:
+                f_in.write(file_data)
+            return t_input
+
+        # Run blocking I/O in a separate thread
+        temp_input = await asyncio.to_thread(prepare_input_file)
             
-        result = verifier.verify(
+        # Run heavy verification process in a separate thread
+        result = await asyncio.to_thread(
+            verifier.verify,
             file_path=temp_input,
             passphrase=passphrase
         )
