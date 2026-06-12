@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hbit"
-version = "1.0.0b1"
+version = "1.1.0"
 description = "H-Bit: Persistent Authenticity Protocol — Steganographic signing with cryptographic verification for any digital file"
 readme = "README.md"
 license = {text = "Apache-2.0"}

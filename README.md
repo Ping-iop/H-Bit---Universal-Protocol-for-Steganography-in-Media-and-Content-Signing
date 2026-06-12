@@ -9,11 +9,12 @@
 - **Firmado Universal**: Firma cualquier formato de archivo (imágenes, audio, video, documentos, genérico)
 - **Esteganografía Avanzada**: LSB, DCT (resistente a compresión JPEG), Híbrido
 - **Criptografía Moderna**: Ed25519, HKDF (RFC 5869), AES-256-GCM
-- **Resiliencia Analógica**: Reed-Solomon ECC, Tiling, Anchor Grid OFDM, Dewarp
+- **Verificación Espectral** (NUEVO v1.1): Confianza granular 0-100% en vez de binario VERIFIED/TAMPERED
+- **Detección de Deepfakes**: Identifica origen HUMAN vs AI_GENERATED incluso en fragmentos parciales
+- **Resiliencia Analógica**: Reed-Solomon ECC, Tiling, Barker Sync, Anchor Grid
 - **Integración Blockchain**: Registro en Polygon, Manifiestos C2PA
 - **Análisis Forense**: PRNU (huella de sensor), Análisis de Luminancia
 - **Aceleración GPU**: Backend CuPy con fallback automático a NumPy
-- **HBFS Prototype**: Sistema de archivos autenticado con watchdog + identity registry
 
 ## Cómo Funciona (Fundamentos Técnicos)
 
@@ -89,11 +90,16 @@ pip install -e ".[docs]"    # mkdocs
 # Generar claves Ed25519
 hbit keygen --output mi_clave.pem
 
-# Firmar un archivo
-hbit encode imagen.jpg --key mi_clave.pem --output firmado.png
+# Firmar un archivo (con declaración de origen)
+hbit encode imagen.jpg --key mi_clave.pem --output firmado.png --origin human
+hbit encode ai_art.jpg --key mi_clave.pem --origin ai --ai-model midjourney-v6
 
-# Verificar autenticidad
+# Verificar autenticidad (binario)
 hbit verify firmado.png
+
+# ANÁLISIS ESPECTRAL (confianza granular 0-100%)
+hbit spectrum --input firmado.png
+hbit spectrum --input firmado.png --verbose
 
 # Decodificar firma
 hbit decode firmado.png
@@ -164,7 +170,7 @@ pytest
 pytest --cov=hbit --cov-report=html
 ```
 
-**Estado actual**: 129/129 tests pasando
+**Estado actual**: 185/187 tests pasando (v1.1.0)
 
 ## Licencia
 

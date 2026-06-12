@@ -590,5 +590,126 @@ def batch(
     click.echo(f"Completado: {success} firmados, {errors} errores.")
 
 
+@main.command()
+@click.option(
+    "--input", "-i", "input_path",
+    required=True,
+    type=click.Path(exists=True),
+    help="Archivo a analizar (puede ser parcial: crop, fragmento).",
+)
+@click.option(
+    "--verbose", "-v",
+    is_flag=True,
+    default=False,
+    help="Mostrar detalles de cada tile.",
+)
+def spectrum(input_path: str, verbose: bool):
+    """Análisis espectral: verificación parcial con confianza granular.
+
+    A diferencia de 'verify' (binario: VERIFIED/TAMPERED),
+    'spectrum' analiza CADA copia del payload y produce
+    un perfil de confianza espectral (0% a 100%).
+
+    Útil para:
+    - Verificar crops/fragmentos de imágenes
+    - Detectar manipulaciones parciales
+    - Análisis forense de deepfakes
+    - Cuantificar CUÁNTA evidencia de autenticidad existe
+    """
+    from hbit.analysis.spectrum import SpectrumVerifier
+
+    verifier = SpectrumVerifier()
+    result = verifier.analyze(input_path)
+
+    # Cabecera
+    verdict_colors = {
+        "AUTHENTIC": "green",
+        "LIKELY_AUTHENTIC": "green",
+        "POSSIBLY_AUTHENTIC": "yellow",
+        "UNCERTAIN": "yellow",
+        "LIKELY_TAMPERED": "red",
+        "NO_EVIDENCE": "red",
+    }
+
+    click.echo()
+    click.echo("═" * 60)
+    click.echo("  H-Bit Spectrum Analysis")
+    click.echo("═" * 60)
+    click.echo(f"  Archivo:     {Path(input_path).name}")
+    click.echo(f"  Tipo:        {result.media_category}")
+    click.echo(f"  Formato:     {result.format_name}")
+    click.echo(f"  Bits dispon: {result.total_bits_available:,}")
+    click.echo("─" * 60)
+
+    # Veredicto principal
+    verdict_icons = {
+        "AUTHENTIC": "✅",
+        "LIKELY_AUTHENTIC": "✅",
+        "POSSIBLY_AUTHENTIC": "⚠️",
+        "UNCERTAIN": "⚠️",
+        "LIKELY_TAMPERED": "❌",
+        "NO_EVIDENCE": "❌",
+    }
+    icon = verdict_icons.get(result.verdict, "❓")
+    click.echo(f"  {icon} Veredicto:  {result.verdict}")
+    click.echo(f"     Confianza: {result.confidence:.1%}")
+    click.echo()
+
+    # Métricas
+    click.echo("  📊 Métricas de Recuperación:")
+    click.echo(f"     Tiles encontrados:    {result.tiles_total}")
+    click.echo(f"     Payloads válidos:     {result.payloads_valid}")
+    click.echo(f"     Consenso autor:       {result.author_consensus:.1%}")
+    click.echo(f"     Consenso contenido:   {result.content_consensus:.1%}")
+    click.echo(f"     Consenso origen:      {result.origin_consensus:.1%}")
+    click.echo()
+
+    click.echo("  🔧 Métricas de Integridad:")
+    click.echo(f"     Correcciones ECC:     {result.ecc_total_corrections}")
+    click.echo(f"     Fallos ECC:           {result.ecc_failures}")
+    click.echo(f"     Calidad sync:         {result.sync_quality:.1%}")
+    click.echo(f"     Completitud payload:  {result.payload_completeness:.1%}")
+    click.echo()
+
+    # Identidad
+    if result.author_hash:
+        click.echo("  👤 Identidad del Autor:")
+        click.echo(f"     Hash:      {result.author_hash[:32]}...")
+        if result.origin_type:
+            click.echo(f"     Origen:    {result.origin_type}")
+        if result.ai_model_id:
+            click.echo(f"     Modelo IA: {result.ai_model_id[:32]}...")
+        if result.content_hash:
+            click.echo(f"     Contenido: {result.content_hash[:32]}...")
+        click.echo()
+
+    # Detalle de tiles (verbose)
+    if verbose and result.tile_details:
+        click.echo("  📋 Detalle de Tiles:")
+        click.echo(f"     {'Tile':>5} {'Posición':>12} {'Bits':>6} {'Válido':>7} {'ECC':>4} {'Sync':>6}")
+        click.echo(f"     {'─'*5} {'─'*12} {'─'*6} {'─'*7} {'─'*4} {'─'*6}")
+        for tile in result.tile_details:
+            valid_mark = "✓" if tile.valid_payload else "✗"
+            sync_avg = (tile.sync_header_corr + tile.sync_footer_corr) / 2
+            click.echo(
+                f"     {tile.index:>5} "
+                f"{tile.position_start:>6}-{tile.position_end:<5} "
+                f"{tile.payload_length_bits:>6} "
+                f"{valid_mark:>7} "
+                f"{tile.ecc_corrections:>4} "
+                f"{sync_avg:>5.0%}"
+            )
+
+    # Resumen
+    click.echo("─" * 60)
+    click.echo(f"  {result.analysis_summary}")
+    click.echo("═" * 60)
+    click.echo()
+
+    # Exit code
+    if result.verdict == "NO_EVIDENCE":
+        raise SystemExit(1)
+
+
 if __name__ == "__main__":
     main()
