@@ -1,0 +1,191 @@
+{
+  "image_size": "512\u00d7512",
+  "format": "PNG",
+  "quality": {
+    "psnr_db": 55.921404341901635,
+    "ssim": 0.999984883044474,
+    "bits_embedded": 790,
+    "capacity_used": 0.9975051879882812
+  },
+  "speed": {
+    "encode_time_ms": 113.39828000054695,
+    "decode_time_ms": 203.93097999913152,
+    "spectrum_time_ms": 644.0587666681191,
+    "file_size_original_bytes": 788095,
+    "file_size_signed_bytes": 788091
+  },
+  "jpeg_robustness": [
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "100",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "95",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "90",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "80",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 1,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "70",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "60",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "50",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "30",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "jpeg_compression",
+      "parameter": "10",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    }
+  ],
+  "crop_robustness": [
+    {
+      "test_name": "crop_height",
+      "parameter": "100% (512px)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 331,
+      "tiles_valid": 331
+    },
+    {
+      "test_name": "crop_height",
+      "parameter": "75% (384px)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 248,
+      "tiles_valid": 248
+    },
+    {
+      "test_name": "crop_height",
+      "parameter": "50% (256px)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 165,
+      "tiles_valid": 165
+    },
+    {
+      "test_name": "crop_height",
+      "parameter": "25% (128px)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 82,
+      "tiles_valid": 82
+    },
+    {
+      "test_name": "crop_height",
+      "parameter": "12% (61px)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 39,
+      "tiles_valid": 39
+    },
+    {
+      "test_name": "crop_height",
+      "parameter": "6% (30px)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 19,
+      "tiles_valid": 19
+    },
+    {
+      "test_name": "crop_height",
+      "parameter": "3% (15px)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 9,
+      "tiles_valid": 9
+    }
+  ],
+  "resize_robustness": [
+    {
+      "test_name": "resize",
+      "parameter": "100% (512\u00d7512)",
+      "spectrum_verdict": "AUTHENTIC",
+      "spectrum_confidence": 0.983177570093458,
+      "tiles_recovered": 331,
+      "tiles_valid": 331
+    },
+    {
+      "test_name": "resize",
+      "parameter": "90% (460\u00d7460)",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "resize",
+      "parameter": "75% (384\u00d7384)",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "resize",
+      "parameter": "50% (256\u00d7256)",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    },
+    {
+      "test_name": "resize",
+      "parameter": "25% (128\u00d7128)",
+      "spectrum_verdict": "NO_EVIDENCE",
+      "spectrum_confidence": 0.0,
+      "tiles_recovered": 0,
+      "tiles_valid": 0
+    }
+  ]
+}
